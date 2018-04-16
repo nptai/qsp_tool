@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="../libs/tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="./libs/tinymce/js/tinymce/tinymce.min.js"></script>
 </head>
 
 <body>
@@ -178,16 +178,18 @@
     b.append(
       `<div class="block">
         <div class="block">
-          <label>
+          <div class="group-input2">
+            <label>
               Image/Video ${id}
-            <div class="tool-tips">
-              <i class="fas fa-info-circle"></i>
-              <img src="./"/>
-            </div>
-          </label>
-          <!-- drop-down-list here -->
+              <div class="tool-tips">
+                <i class="fas fa-info-circle"></i>
+                <img src="./"/>
+              </div>
+            </label>
+          </div>            
+          <div class="group-input2">
+          </div>
         </div>
-
         <div class="block">
           <label>
             Image ${id} text Field

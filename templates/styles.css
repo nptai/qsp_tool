@@ -158,5 +158,19 @@ select {
   box-shadow: none;
   background: #d3d3d3;
 }
-select option {
+
+button {
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  line-height: 30px;
+  width: 150px;
+  padding: 0 10px;
+  text-align: center;
+  background: #000000;
+  color: #ffffff;
+  position: relative;
+  outline: 0;
+  border: solid 1px #ffffff;
+  transition: ease .3s;
 }
