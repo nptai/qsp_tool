@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Page title</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="../libs/tinymce/js/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <div class="header-wrapper">
+      <h1 class="title">Header</h1>
+      <div class="header-content">
+        <div class="block block-1">
+          <div class="group-input3">
+            <label>
+              Page Title
+              <div class="tool-tips">
+                <i class="fas fa-info-circle"></i>
+                <img src="./"/>   
+              </div>
+            </label>
+            <input placeholder="Please enter unique Page Title"/>
+          </div>
+          <div class="group-input3 input-file">
+            <label>
+              Logo Upload
+              <div class="tool-tips">
+                <i class="fas fa-info-circle"></i>
+                <img src="./"/>   
+              </div>
+            </label>
+            <button>
+              <div class="fake-btn">
+                <i class="fas fa-upload"></i>
+                Choose a file
+              </div>
+              <input type="file" id="logo"/>
+            </button>
+          </div>
+          <div class="group-input3"></div>
+        </div>
+        <div class="block block-2"></div>
+      </div>
+    </div>
+    <div class="body-wrapper">
+      <h1 class="title">Body</h1>
+      <div class="block">
+        <label>
+          Headings
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="./"/>
+          </div>
+        </label>
+        <div class="mce"></div>
+      </div>
+
+      <div class="block">
+        <div class="group-input3 input-file">
+          <label>
+            Product Image
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>   
+            </div>
+          </label>
+          <button>
+            <div class="fake-btn">
+              <i class="fas fa-upload"></i>
+              Choose a file
+            </div>
+            <input type="file" id="product_img"/>
+          </button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="group-input3 input-file">
+          <label>
+            Background Image
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>   
+            </div>
+          </label>
+          <button>
+            <div class="fake-btn">
+              <i class="fas fa-upload"></i>
+              Choose a file
+            </div>
+            <input type="file" id="background_img"/>
+          </button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="group-input2">
+          <label>
+            Buy Button Html
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>   
+            </div>
+          </label>
+          <!-- here -->
+          <select name="text">
+            <option value="0">Please Select</option>
+            <option value="1">Buy button through code</option>
+            <option value="2">Buy button through image</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="block">      
+        <div class="group-input2">
+          <label>
+            Heading Above Buy Button
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <div class="mce"></div>
+        </div>
+        <div class="group-input2">
+          <label>
+            Heading Below Buy Button
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <div class="mce"></div>
+        </div>
+      </div>
+
+      <div class="block image_video">
+      </div>
+
+      <div class="block">
+        <div class="group-input3"></div>
+        <div class="group-input3"></div>
+        <div class="group-input3">
+          <button onclick="add_block_iv()"> Add New Row </button>
+        </div>        
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script>
+  header_links = (img_src) => {
+    for (var i = 0; i < 3; ++i) {
+      $(".block.block-2").append(
+        `<div class="group-input3">
+          <label>
+            Header Link
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="${img_src}"/>   
+            </div>
+          </label>
+          <input placeholder="header link one text"/>
+          <input placeholder="header link one url"/>
+        </div>`
+      )
+    }
+  }
+
+  add_block_iv = () => {
+    var b = $(".block.image_video")
+    var id = b.children().length+1
+    b.append(
+      `<div class="block">
+        <div class="block">
+          <label>
+              Image/Video ${id}
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <!-- drop-down-list here -->
+        </div>
+
+        <div class="block">
+          <label>
+            Image ${id} text Field
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <div class="mce" id="${id}"></div>
+        </div>
+      </div>`
+    )
+    tinymce.init({ selector:'.mce' })
+  }
+
+  tinymce.init({ selector:'.mce' })
+
+  $('.block.block-2').ready(header_links("./"))
+
+  $(".block.image_video").ready(add_block_iv())  
+
+</script>
+
+</html>
