@@ -1,0 +1,51 @@
+<!doctype html>
+ 
+ <html class='no-js' lang='{{shop.locale}}'> 
+ <head>
+{% include 'fb-open-graph' %}
+ <meta charset='utf-8'>
+ <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+ <meta name='viewport' content='width=device-width,initial-scale=1'>
+ <meta name='theme-color' content='{{settings.color_button}}'>
+ <link rel='canonical' href='{{canonical_url}}'>
+ <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/bootstrap.css'>
+ <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/common.css'>
+ <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/jquery.bxslider.css'>
+ <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+ <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet'>
+ <script src='https://quicksalespage.co/js/bootstrap.min.js'></script>
+ <script src='https://quicksalespage.co/js/jquery.bxslider.min.js'></script>
+{% capture seo_title %}
+{{page_title}}
+{% if current_tags %}
+{%- assign meta_tags=current_tags | join: ', ' %}&ndash;{{'general.meta.tags' | t: tags: meta_tags -}}
+{% endif %}
+{% if current_page !=1 %}
+ &ndash;{{'general.meta.page' | t: page: current_page}}
+{% endif %}
+{% unless page_title contains shop.name %}
+ &ndash;{{shop.name}}
+{% endunless %}
+{% endcapture %}
+ <title>{{seo_title}}</title>
+{% if page_description %}
+ <meta name='description' content='{{page_description | escape}}'>
+{% endif %}
+{{content_for_header}}
+ </head>
+ <body class='template-{{template | split: '.' | first}}'>
+{{content_for_layout}}
+ 
+<script type='text/javascript'> setTimeout(function(){
+ jQuery(document).ready(function(){
+ jQuery('iframe').contents().find('head')
+ .append(jQuery('<style>.shopify-buy__layout-vertical .shopify-buy__product__variant-selectors{max-width:100% !important;}.shopify-buy__btn{width:100% !important;padding: 15px 0px !important}</style>'));
+});
+ var count=jQuery('.withouslider li').length;
+ if(count==1){
+ jQuery('.withouslider li').css('width','100%');
+}
+}, 3000);
+ </script>
+ </body>
+ </html>

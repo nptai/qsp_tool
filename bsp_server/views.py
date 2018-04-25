@@ -4,8 +4,7 @@ from config import Config
 import requests, json
 import shopify
 
-shopify.Session.setup(api_key=Config.shopify_config['api_key'], 
-                        secret=Config.shopify_config['secret'])
+shopify.Session.setup(**Config.authen_params)
 
 def install(request):
     if request.GET.get('shop'):
@@ -14,14 +13,12 @@ def install(request):
         return HttpResponse(response='Error:parameter shop not found', status=500)
 
     session = shopify.Session(shop)    
-    permission_url = session.create_permission_url(scope=Config.shopify_config['scope'], 
-                                redirect_uri=Config.shopify_config['redirect_uri'])
+    permission_url = session.create_permission_url(**Config.permission_params)
 
     return redirect(permission_url)
 
 def connect(request):  
     shop = request.GET.get('shop')
-    print request
     if shop is None:
         return render(request, 'error.html')
 
@@ -29,20 +26,31 @@ def connect(request):
     token = session.request_token(request.GET)
     session = shopify.Session(shop, token)
     shopify.ShopifyResource.activate_session(session)
+    
     copy_template()
+    create_page(True)
+    
     return render(request, 'welcome.html')
 
 def copy_template():
-    theme_id = 0
-    for theme in shopify.Theme().find():
-        if theme.role == 'main':
-            theme_id = theme.id
-
     try:
-        shopify.Asset().find('templates/BestSalePage.liquid', theme_id=theme_id)
+        theme = shopify.Theme().find(role='main')[0]
+        shopify.Asset().find(Config.theme_params['templates'], theme_id=theme.id)
     except Exception as e:
         shopify.Asset.create({
-            'key': 'templates/BestSalePage.liquid',
-            'value': 'omg'
-        }) 
-    
+            'key': Config.theme_params['templates'],
+            'value': open('./templates/page.%s.liquid' % Config.prefix).read()
+        })
+
+        shopify.Asset.create({
+            'key': Config.theme_params['layout'],
+            'value': open('./templates/theme.%s.liquid' % Config.prefix).read()
+        })
+
+def create_page(published=False):
+    shopify.Page.create({
+        'title': 'Warranty information',
+        'body_html': '<h1>Warranty</h1>\n<p><strong>Forget it</strong>, we aint giving you nothing</p>',
+        'piublished': published,
+        'template_suffix': Config.prefix
+    })
