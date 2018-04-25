@@ -1,8 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
-from config import Config
+from django.shortcuts import redirect, render, render_to_response
+from django.template import RequestContext
 import requests, json
 import shopify
+
+from config import Config
 
 shopify.Session.setup(**Config.authen_params)
 
@@ -10,7 +12,7 @@ def install(request):
     if request.GET.get('shop'):
         shop = request.GET.get('shop')
     else:
-        return HttpResponse(response='Error:parameter shop not found', status=500)
+        return render(request, 'error.html', {})
 
     session = shopify.Session(shop)    
     permission_url = session.create_permission_url(**Config.permission_params)
@@ -20,7 +22,7 @@ def install(request):
 def connect(request):  
     shop = request.GET.get('shop')
     if shop is None:
-        return render(request, 'error.html')
+        return render(request, 'error.html', {})
 
     session = shopify.Session(shop)
     token = session.request_token(request.GET)
@@ -28,9 +30,8 @@ def connect(request):
     shopify.ShopifyResource.activate_session(session)
     
     copy_template()
-    create_page(True)
     
-    return render(request, 'welcome.html')
+    return render(request, 'welcome.html', {})
 
 def copy_template():
     try:
