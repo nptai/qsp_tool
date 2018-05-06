@@ -18,5 +18,6 @@ import views
 
 urlpatterns = [
     url(r'^install', views.install),
-    url(r'^connect', views.connect),    
+    url(r'^connect', views.connect), 
+    url(r'^create_page', views.create_page),   
 ]

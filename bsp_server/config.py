@@ -1,6 +1,6 @@
 class Config(object):
     secret = '8374fuwekjqhf/68&(*#42g126#1234&6813HSAasdgDI78'
-    host = '35.194.183.235:8888'
+    host = '35.189.164.167'
     prefix = 'BestSalePage'
 
     authen_params = {

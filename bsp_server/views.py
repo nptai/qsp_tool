@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, render_to_response
 from django.template import RequestContext
-import requests, json
+from django.views.decorators.csrf import csrf_exempt
+import requests, json, os
 import shopify
 
 from config import Config
@@ -31,8 +32,24 @@ def connect(request):
     
     copy_template()
     
-    return render(request, 'welcome.html', {})
+    request.session['shop'] = shop
+    request.session['token'] = token
+    return render(request, 'index.html', {})
 
+@csrf_exempt 
+def create_page(request):
+    session = shopify.Session(request.session['shop'], request.session['token'])
+    shopify.ShopifyResource.activate_session(session)
+    
+    shopify.Page.create({
+        'title': request.POST.get('title'),
+        'body_html': '<h1>Warranty</h1>\n<p><strong>Forget it</strong>, we aint giving you nothing</p>',
+        'piublished': False,
+        'template_suffix': Config.prefix
+    })
+    
+    return HttpResponse("Success")
+    
 def copy_template():
     try:
         theme = shopify.Theme().find(role='main')[0]
@@ -48,10 +65,13 @@ def copy_template():
             'value': open('./templates/theme.%s.liquid' % Config.prefix).read()
         })
 
-def create_page(published=False):
-    shopify.Page.create({
-        'title': 'Warranty information',
-        'body_html': '<h1>Warranty</h1>\n<p><strong>Forget it</strong>, we aint giving you nothing</p>',
-        'piublished': published,
-        'template_suffix': Config.prefix
-    })
+def save_html(shop, title, html):
+    folder = os.path.join('pages', shop)
+    if not os.path.isdir(folder):
+        os.mkdir(folder)
+    filename = os.path.join(folder, '%s.html' % title)
+    f = open(filename, 'w')
+    print f.write(html)
+    f.close()
+
+
