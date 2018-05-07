@@ -2,15 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Page title</title>
-<link rel="stylesheet" href="{% static "styles.css" %}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="{% static "libs/tinymce/js/tinymce/tinymce.min.js" %}"></script>
+  <meta charset="UTF-8">
+  <title>Page title</title>
+  <link rel="stylesheet" href="{% static "styles.css" %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+        integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="{% static "libs/tinymce/tinymce.min.js" %}"></script>
 </head>
 
 <body>
+<form class="site-form" action="/create_page" method="post">
   <div class="main-wrapper">
     <div class="header-wrapper">
       <h1 class="title">Header</h1>
@@ -21,17 +23,17 @@
               Page Title
               <div class="tool-tips">
                 <i class="fas fa-info-circle"></i>
-                <img src="./"/>   
+                <img src="./"/>
               </div>
             </label>
-            <input placeholder="Please enter unique Page Title"/>
+            <input name="page-title" placeholder="Please enter unique Page Title"/>
           </div>
           <div class="group-input3 input-file">
             <label>
               Logo Upload
               <div class="tool-tips">
                 <i class="fas fa-info-circle"></i>
-                <img src="./"/>   
+                <img src="./"/>
               </div>
             </label>
             <button>
@@ -39,7 +41,7 @@
                 <i class="fas fa-upload"></i>
                 Choose a file
               </div>
-              <input type="file" id="logo"/>
+              <input name="page-logo" type="file" id="logo"/>
             </button>
           </div>
           <div class="group-input3"></div>
@@ -66,7 +68,7 @@
             Product Image
             <div class="tool-tips">
               <i class="fas fa-info-circle"></i>
-              <img src="./"/>   
+              <img src="./"/>
             </div>
           </label>
           <button>
@@ -85,7 +87,7 @@
             Background Image
             <div class="tool-tips">
               <i class="fas fa-info-circle"></i>
-              <img src="./"/>   
+              <img src="./"/>
             </div>
           </label>
           <button>
@@ -104,7 +106,7 @@
             Buy Button Html
             <div class="tool-tips">
               <i class="fas fa-info-circle"></i>
-              <img src="./"/>   
+              <img src="./"/>
             </div>
           </label>
           <select name="text" onchange="on_change_buy_button(this)">
@@ -131,7 +133,7 @@
                   Choose a file
                 </div>
                 <input type="file" id="background_img"/>
-              </button>  
+              </button>
             </div>
             <label>
               Button Link
@@ -140,8 +142,8 @@
           </div>
         </div>
       </div>
-      
-      <div class="block">      
+
+      <div class="block">
         <div class="group-input2">
           <label>
             Heading Above Buy Button
@@ -171,8 +173,8 @@
         <div class="group-input3"></div>
         <div class="group-input3"></div>
         <div class="group-input3" id="button">
-          <button onclick="add_block_iv('body')"> Add New Row </button>
-        </div>        
+          <button onclick="add_block_iv('body')"> Add New Row</button>
+        </div>
       </div>
 
     </div>
@@ -207,37 +209,36 @@
         <div class="group-input3"></div>
         <div class="group-input3"></div>
         <div class="group-input3" id="button">
-          <button onclick="add_block_iv('testimonial')"> Add Row </button>
-        </div>        
+          <button onclick="add_block_iv('testimonial')"> Add Row</button>
+        </div>
       </div>
     </div>
 
     <div class="body-wrapper">
-        <h1 class="title">Video Row</h1>
-        <div class="block">
-          <label>
-            Number Of Columns
-            <div class="tool-tips">
-              <i class="fas fa-info-circle"></i>
-              <img src="./"/>
-            </div>
-          </label>
+      <h1 class="title">Video Row</h1>
+      <div class="block">
+        <label>
+          Number Of Columns
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="./"/>
+          </div>
+        </label>
 
-          <select name="text" onchange="on_add_video_row(this)">
-            <option value="0">Please Select</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>         
-            <option value="4">4</option>
-          </select>
-        </div>
-        <div class="block video-rows">
-        </div>
+        <select onchange="on_add_video_row(this)">
+          <option value="0">Please Select</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
       </div>
+      <div class="block video-rows">
+      </div>
+    </div>
   </div>
-  <div id="button">
-    <button onclick="submit()"> Submit </button>
-  </div>
+  <input type="submit" value="Submit"/>
+</form>
 </body>
 
 <script>
@@ -263,9 +264,9 @@
     $(`#video-rows-${id}`).remove()
   }
 
-  add_video_row = (id) => {    
+  add_video_row = (id) => {
     $(".block.video-rows").append(
-      `
+        `
       <div class="block" id="video-rows-${id}">
         <div class="group-input3"> 
           <label>
@@ -284,7 +285,7 @@
 
   on_add_video_row = (obj) => {
     var x = parseInt(obj.value || obj.options[obj.selectedIndex].value)
-    $(".block.video-rows").empty()    
+    $(".block.video-rows").empty()
     for (var i = 0; i < x; ++i) {
       add_video_row(i)
     }
@@ -308,7 +309,7 @@
     var x = (obj.value || obj.options[obj.selectedIndex].value)
     var img = `#${scope}-iv-image-${id}`
     var video = `#${scope}-iv-video-${id}`
-    
+
     if (x == 0) {
       $(img).hide()
       $(video).hide()
@@ -327,9 +328,9 @@
 
   add_block_iv = (scope) => {
     var b = $(`.block.${scope}.image-video`)
-    var id = b.children().length+1
+    var id = b.children().length + 1
     b.append(
-      `<div class="block" id="${scope}-iv-${id}">
+        `<div class="block" id="${scope}-iv-${id}">
         <div class="block">
           <div class="group-input3">
             <label>
@@ -365,11 +366,11 @@
               <textarea></textarea>            
             </div>
           </div>`
-          +
-          (id > 1 ? `<div class="group-input3" id="button">
+        +
+        (id > 1 ? `<div class="group-input3" id="button">
             <button onclick="delete_block_iv('${scope}', ${id})"> Remove Row </button>
           </div>` : `<div class="group-input3"></div>`)
-          +
+        +
         `</div>`
         +
         (scope == "body" ? `<div class="block">
@@ -381,25 +382,21 @@
             </div>
           </label>
           <div class="mce" id="${scope}-iv-mce-${id}"></div>
-        </div>`:``)
+        </div>` : ``)
         +
-      `</div>`
+        `</div>`
     )
 
-    if (scope == "body") tinymce.init({ selector:'.mce' })
+    if (scope == "body") tinymce.init({selector: '.mce'})
   }
 
-  submit = () => {
-    $.post("/create_page/", { title: "title" });
-  }
-
-  tinymce.init({ selector:'.mce' })
+  tinymce.init({selector: '.mce'})
 
   $(".block.block-2").ready(header_links("./"))
 
   $(".block.body.image-video").ready(add_block_iv("body"))
-  
-  $(".block.testimonial.image-video").ready(add_block_iv("testimonial"))    
+
+  $(".block.testimonial.image-video").ready(add_block_iv("testimonial"))
 
 </script>
 
