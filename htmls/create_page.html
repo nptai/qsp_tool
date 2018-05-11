@@ -1,0 +1,399 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Page title</title>
+  <link rel="stylesheet" href="{% static "styles.css" %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+        integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="{% static "libs/tinymce/tinymce.min.js" %}"></script>
+  <script src="{% static "create_page.js" %}"></script>
+</head>
+
+<body>
+<form class="site-form" action="/create_page" method="post">
+  <div class="main-wrapper">
+
+    {# Header #}
+    <div class="header-wrapper">
+      <h1 class="title">Header</h1>
+      <div class="header-content">
+        <div class="block block-1">
+          <div class="group-input3">
+            <label>
+              Page Title
+              <div class="tool-tips">
+                <i class="fas fa-info-circle"></i>
+                <img src="./"/>
+              </div>
+            </label>
+            <input name="header-title" placeholder="Please enter unique Page Title"/>
+          </div>
+          <div class="group-input3 input-file">
+            <label>
+              Logo Upload
+              <div class="tool-tips">
+                <i class="fas fa-info-circle"></i>
+                <img src="./"/>
+              </div>
+            </label>
+            <button>
+              <div class="fake-btn">
+                <i class="fas fa-upload"></i>
+                Choose a file
+              </div>
+              <input name="header-logo" type="file" id="logo"/>
+            </button>
+          </div>
+          <div class="group-input3"></div>
+        </div>
+
+        <div class="block block-2"></div>
+        <script>
+          header_links(".block.block-2", "./");
+        </script>
+      </div>
+    </div>
+
+    {# Body #}
+    <div class="body-wrapper">
+      <h1 class="title">Body</h1>
+
+      <div class="block">
+        <label>
+          Headings
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="./"/>
+          </div>
+        </label>
+        <div id="body-heading" class="mce"></div>
+      </div>
+
+      <div class="block">
+        <div class="group-input3 input-file">
+          <label>
+            Product Image
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <button>
+            <div class="fake-btn">
+              <i class="fas fa-upload"></i>
+              Choose a file
+            </div>
+            <input name="body-pr-image" type="file" id="product_img"/>
+          </button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="group-input3 input-file">
+          <label>
+            Background Image
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <button>
+            <div class="fake-btn">
+              <i class="fas fa-upload"></i>
+              Choose a file
+            </div>
+            <input name="body-bg-image" type="file" id="background_img"/>
+          </button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="group-input2">
+          <label>
+            Buy Button Html
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <select name="body-buy-button" onchange="on_change_buy_button(this)">
+            <option value="0">Please Select</option>
+            <option value="1">Buy button through code</option>
+            <option value="2">Buy button through image</option>
+          </select>
+        </div>
+        <div class="group-input2">
+          <div id="buy-button-code" style="display: none;">
+            <label>
+              Buy button through code
+            </label>
+            <textarea name="body-bb-code"></textarea>
+          </div>
+          <div id="buy-button-image" style="display: none;">
+            <label>
+              Buy button through image
+            </label>
+            <div class="input-file">
+              <button>
+                <div class="fake-btn">
+                  <i class="fas fa-upload"></i>
+                  Choose a file
+                </div>
+                <input name="body-bb-image" type="file" id="background_img"/>
+              </button>
+            </div>
+            <label>
+              Button Link
+            </label>
+            <input name="body-bb-link" type="text"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="group-input2">
+          <label>
+            Heading Above Buy Button
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <div id="body-above-bb" class="mce"></div>
+        </div>
+        <div class="group-input2">
+          <label>
+            Heading Below Buy Button
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <div id="body-below-bb" class="mce"></div>
+        </div>
+      </div>
+
+      <div class="block body image-video"></div>
+
+      <div class="block">
+        <div class="group-input3"></div>
+        <div class="group-input3"></div>
+        <div class="group-input3" id="button">
+          <button onclick="add_block_iv('body')"> Add New Row</button>
+        </div>
+      </div>
+
+    </div>
+
+    {# Testimonial #}
+    <div class="body-wrapper">
+      <h1 class="title">Testimonial</h1>
+      <div class="block">
+        <label>
+          Testimonial Heading
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="./"/>
+          </div>
+        </label>
+        <div class="mce"></div>
+      </div>
+      <div class="block">
+        <label>
+          Slider
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="./"/>
+          </div>
+        </label>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="block testimonial image-video">
+      </div>
+      <div class="block">
+        <div class="group-input3"></div>
+        <div class="group-input3"></div>
+        <div class="group-input3" id="button">
+          <button onclick="add_block_iv('testimonial')"> Add Row</button>
+        </div>
+      </div>
+    </div>
+
+    {# Video Row #}
+    <div class="body-wrapper">
+      <h1 class="title">Video Row</h1>
+      <div class="block">
+        <label>
+          Number Of Columns
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="./"/>
+          </div>
+        </label>
+
+        <select onchange="on_add_video_row(this)">
+          <option value="0">Please Select</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <div class="block video-rows">
+      </div>
+    </div>
+
+    {# Footer #}
+  </div>
+  <input type="submit" value="Submit"/>
+</form>
+</body>
+
+
+<script>
+  delete_video_row = (id) => {
+    $(`#video-rows-${id}`).remove()
+  }
+
+  add_video_row = (id) => {
+    $(".block.video-rows").append(
+        `
+      <div class="block" id="video-rows-${id}">
+        <div class="group-input3">
+          <label>
+            Video Embed Url
+          </label>
+          <textarea></textarea>
+        </div>
+        <div class="group-input3"></div>
+        <div class="group-input3" id="button">
+          <button onclick="delete_video_row(${id})"> Delete Row </button>
+        </div>
+      </div>
+      `
+    )
+  }
+
+
+  on_add_video_row = (obj) => {
+    var x = parseInt(obj.value || obj.options[obj.selectedIndex].value)
+    $(".block.video-rows").empty()
+    for (var i = 0; i < x; ++i) {
+      add_video_row(i)
+    }
+  }
+
+  on_change_buy_button = (obj) => {
+    var x = (obj.value || obj.options[obj.selectedIndex].value)
+    if (x == 0) {
+      $("#buy-button-code").hide()
+      $("#buy-button-image").hide()
+    } else if (x == 1) {
+      $("#buy-button-code").show()
+      $("#buy-button-image").hide()
+    } else if (x == 2) {
+      $("#buy-button-code").hide()
+      $("#buy-button-image").show()
+    }
+  }
+
+  on_change_iv = (obj, scope, id) => {
+    var x = (obj.value || obj.options[obj.selectedIndex].value)
+    var img = `#${scope}-iv-image-${id}`
+    var video = `#${scope}-iv-video-${id}`
+
+    if (x == 0) {
+      $(img).hide()
+      $(video).hide()
+    } else if (x == 1) {
+      $(img).show()
+      $(video).hide()
+    } else if (x == 2) {
+      $(img).hide()
+      $(video).show()
+    }
+  }
+
+  delete_block_iv = (scope, id) => {
+    $(`.block#${scope}-iv-${id}`).hide()
+  }
+
+  add_block_iv = (scope) => {
+    var b = $(`.block.${scope}.image-video`)
+    var id = b.children().length + 1
+    b.append(
+        `<div class="block" id="${scope}-iv-${id}">
+        <div class="block">
+          <div class="group-input3">
+            <label>
+              Image/Video ${id}
+              <div class="tool-tips">
+                <i class="fas fa-info-circle"></i>
+                <img src="./"/>
+              </div>
+            </label>
+            <select onchange="on_change_iv(this, '${scope}', ${id})">
+              <option value="0">Please Select</option>
+              <option value="1">Image</option>
+              <option value="2">Video</option>
+            </select>
+          </div>            
+          <div class="group-input3">
+            <div class="input-file" id="${scope}-iv-image-${id}" style="display: none;">
+              <label>
+                Image file
+              </label>
+              <button>
+                <div class="fake-btn">
+                  <i class="fas fa-upload"></i>
+                  Choose a file
+                </div>
+                <input type="file" id="background_img"/>
+              </button>
+            </div>
+            <div id="${scope}-iv-video-${id}" style="display: none;">
+              <label>
+                Video Embed Url
+              </label>
+              <textarea></textarea>            
+            </div>
+          </div>`
+        +
+        (id > 1 ? `<div class="group-input3" id="button">
+            <button onclick="delete_block_iv('${scope}', ${id})"> Remove Row </button>
+          </div>` : `<div class="group-input3"></div>`)
+        +
+        `</div>`
+        +
+        (scope == "body" ? `<div class="block">
+          <label>
+            Image ${id} text Field
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <div class="mce" id="${scope}-iv-mce-${id}"></div>
+        </div>` : ``)
+        +
+        `</div>`
+    )
+
+    if (scope == "body") tinymce.init({selector: '.mce'})
+  }
+
+  tinymce.init({selector: '.mce'})
+
+  $(".block.body.image-video").ready(add_block_iv("body"))
+
+  $(".block.testimonial.image-video").ready(add_block_iv("testimonial"))
+
+</script>
+
+</html>
