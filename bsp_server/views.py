@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 import requests, json, os
 from shopify import Session, ShopifyResource, Asset, Theme
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 
 from config import Config
 
@@ -46,10 +48,16 @@ def create_page(request):
     #     'piublished': False,
     #     'template_suffix': Config.prefix
     # })
-    jsontxt = json.dumps(request.POST.items(), sort_keys=True, indent=4, separators=(',', ': '))
+    jsontxt = json.dumps(dispatch(request).items(), sort_keys=True, indent=4, separators=(',', ': '))
     print(jsontxt)
     return HttpResponse(jsontxt)
 
+def dispatch(request):
+    meta = request.POST;
+    for file in request.FILES.items():
+        print(file[1].name, file[1].read())
+
+    return meta
 
 def copy_template():
     Asset.create({

@@ -4,23 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Page title</title>
-  <link rel="stylesheet" href="{% static "styles.css" %}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
         integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  {#  <script src="libs/tinymce/tinymce.min.js"></script>#}
+  {#  <script src="create_page.js"></script>#}
+  {#  <link rel="stylesheet" href="styles.css">#}
+  <link rel="stylesheet" href="{% static "styles.css" %}">
   <script src="{% static "libs/tinymce/tinymce.min.js" %}"></script>
   <script src="{% static "create_page.js" %}"></script>
 </head>
 
 <body>
-<form class="site-form" action="/create_page" method="post">
+<form class="site-form" action="/create_page" method="post" enctype="multipart/form-data">
   <div class="main-wrapper">
-
     {# Header #}
     <div class="header-wrapper">
       <h1 class="title">Header</h1>
       <div class="header-content">
-        <div class="block block-1">
+        <div class="block">
           <div class="group-input3">
             <label>
               Page Title
@@ -39,19 +41,19 @@
                 <img src="./"/>
               </div>
             </label>
-            <button>
+            <div class="button">
               <div class="fake-btn">
                 <i class="fas fa-upload"></i>
                 Choose a file
               </div>
               <input name="header-logo" type="file"/>
-            </button>
+            </div>
           </div>
           <div class="group-input3"></div>
         </div>
 
-        <div class="block block-2"></div>
-        <script> header_links(".block.block-2", "./"); </script>
+        <div class="block header-links"></div>
+        <script> generate_links(".block.header-links", "header", "./"); </script>
       </div>
     </div>
 
@@ -79,13 +81,13 @@
               <img src="./"/>
             </div>
           </label>
-          <button>
+          <div class="button">
             <div class="fake-btn">
               <i class="fas fa-upload"></i>
               Choose a file
             </div>
             <input name="body-pr-image" type="file" id="product_img"/>
-          </button>
+          </div>
         </div>
       </div>
 
@@ -98,13 +100,13 @@
               <img src="./"/>
             </div>
           </label>
-          <button>
+          <div class="button">
             <div class="fake-btn">
               <i class="fas fa-upload"></i>
               Choose a file
             </div>
             <input name="body-bg-image" type="file" id="background_img"/>
-          </button>
+          </div>
         </div>
       </div>
 
@@ -136,13 +138,13 @@
               Buy button through image
             </label>
             <div class="input-file">
-              <button>
+              <div class="button">
                 <div class="fake-btn">
                   <i class="fas fa-upload"></i>
                   Choose a file
                 </div>
                 <input name="body-bb-image" type="file" id="background_img"/>
-              </button>
+              </div>
             </div>
             <label>
               Button Link
@@ -184,7 +186,8 @@
         <div class="group-input3"></div>
         <div class="group-input3"></div>
         <div class="group-input3" id="button">
-          <button type="button" onclick="add_block_iv('.body.image-video', 'body-iv')"> Add New Row</button>
+          <button class="button" type="button" onclick="add_block_iv('.body.image-video', 'body-iv')"> Add New Row
+          </button>
         </div>
       </div>
     </div>
@@ -227,7 +230,9 @@
         <div class="group-input3"></div>
         <div class="group-input3"></div>
         <div class="group-input3" id="button">
-          <button type="button" onclick="add_block_iv('.testimonial.image-video', 'testimonial-iv')"> Add Row</button>
+          <button class="button" type="button" onclick="add_block_iv('.testimonial.image-video', 'testimonial-iv')">
+            Add Row
+          </button>
         </div>
       </div>
     </div>
@@ -258,9 +263,95 @@
     </div>
 
     {# Footer #}
-  </div>
+    <div class="body-wrapper">
+      <h1 class="title">Footer</h1>
 
-  <input type="submit" value="Submit"/>
+      <div class="block">
+        <div class="group-input3">
+          <label>
+            Address
+            <div class="tool-tips">
+              <i class="fas fa-info-circle"></i>
+              <img src="./"/>
+            </div>
+          </label>
+          <input name="footer-address" placeholder="enter address here..."/>
+        </div>
+        <div class="group-input3"></div>
+        <div class="group-input3"></div>
+      </div>
+
+      <div class="block">
+        <div class="block footer-links"></div>
+        <script> generate_links(".block.footer-links", "footer", "./"); </script>
+      </div>
+
+      <div class="block">
+        <div class="group-input2">
+          <label> Color Select </label>
+          <input name="footer-color-select" placeholder="color select..."/>
+        </div>
+
+        <div class="group-input2">
+          <label> Font Size </label>
+          <input name="footer-font-size" placeholder="enter font size (digits only)"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-wrapper">
+      <div class="block">
+        <label> Tracking code </label>
+        <textarea name="footer-tracking-code"></textarea>
+      </div>
+
+      <div class="block">
+        <div class="group-input3">
+          <label> Facebook Title </label>
+          <input name="footer-facebook-title" placeholder="please enter Facebook title"/>
+        </div>
+
+        <div class="group-input3 input-file">
+          <label> Facebook Image </label>
+          <div class="button">
+            <div class="fake-btn">
+              <i class="fas fa-upload"></i>
+              Choose a file
+            </div>
+            <input name="footer-facebook-image" type="file"/>
+          </div>
+        </div>
+
+        <div class="group-input3"></div>
+      </div>
+      <div class="block">
+        <div class="group-input2">
+          <label> Facebook Description </label>
+          <textarea name="footer-facebook-description"></textarea>
+        </div>
+
+        <div class="group-input2"></div>
+      </div>
+    </div>
+
+    <div class="body-wrapper">
+      <div class="block">
+        <div class="group-input3"></div>
+        <div class="group-input3">
+          <div class="block">
+            <div class="group-input2">
+              <input class="button submit" name="submit" type="submit" value="Submit"/>
+            </div>
+
+            <div class="group-input2">
+              <input class="button submit" name="publish" type="submit" value="Publish"/>
+            </div>
+          </div>
+        </div>
+        <div class="group-input3"></div>
+      </div>
+    </div>
+  </div>
 </form>
 </body>
 

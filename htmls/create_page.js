@@ -1,19 +1,20 @@
-header_links = (selector_name, img_src) => {
-  let selector = $(selector_name)
+generate_links = (selector_name, scope, img_src) => {
+  let selector = $(selector_name);
   for (let i = 0; i < 3; ++i) {
     selector.append(
-      `<div class="group-input3">
-          <label>
-            Header Link
-            <div class="tool-tips">
-              <i class="fas fa-info-circle"></i>
-              <img src="${img_src}"/>
-            </div>
-          </label>
-          <input name="header-link-text-${i}" placeholder="header link one text"/>
-          <input name="header-link-url-${i}" placeholder="header link one url"/>
-        </div>`
-    )
+      `
+      <div class="group-input3">
+        <label>
+          ${scope.charAt(0).toUpperCase()+scope.slice(1).toLowerCase()} Link
+          <div class="tool-tips">
+            <i class="fas fa-info-circle"></i>
+            <img src="${img_src}"/>
+          </div>
+        </label>
+        <input name="${scope}-link[${i}][text]" placeholder="${scope} link ${i+1} text"/>
+        <input name="${scope}-link[${i}][url]" placeholder="${scope} link ${i+1} url"/>
+      </div>`
+    );
   }
 };
 
@@ -87,13 +88,13 @@ add_block_iv = (selector_name, model_name) => {
             <label>
               Image file
             </label>
-            <button>
+            <div class="button">
               <div class="fake-btn">
                 <i class="fas fa-upload"></i>
                 Choose a file
               </div>
               <input name="${model_name}[${id}][image]" type="file"/>
-            </button>
+            </div>
           </div>
           <div id="video-${id}" style="display: none;">
             <label>
@@ -106,7 +107,7 @@ add_block_iv = (selector_name, model_name) => {
     (id > 1 ?
       `
         <div class="group-input3" id="button">
-          <button type="button" onclick="delete_block_iv('${selector_name}', '${model_name}', '${id}')"> Remove Row </button>
+          <button class="button" type="button" onclick="delete_block_iv('${selector_name}', '${model_name}', '${id}')"> Remove Row </button>
         </div>
       </div>
       ` :
@@ -145,15 +146,16 @@ add_video_row = (selector, id) => {
   selector.append(
     `
       <div class="block" id="video-rows-${id}">
-        <div class="group-input3">
-          <label>
-            Video Embed Url
-          </label>
-          <textarea name="video-url-${id}"></textarea>
+        <div>
+        <label> Video Embed Url </label>        
         </div>
-        <div class="group-input3"></div>
-        <div class="group-input3" id="button">
-          <button type="button" onclick="delete_video_row('#video-rows-${id}')"> Delete Row </button>
+        <div class="block">
+          <div class="group-input2">
+            <textarea name="video-url-${id}"></textarea>
+          </div>
+          <div class="group-input2" id="button">
+            <button class="button" type="button" onclick="delete_video_row('#video-rows-${id}')"> Delete Row </button>
+          </div>
         </div>
       </div>
       `
