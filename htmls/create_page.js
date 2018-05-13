@@ -62,8 +62,7 @@ add_block_iv = (selector_name, model_name) => {
   let selector = $(selector_name);
   if (!(selector_name in ids)) ids[selector_name] = 1;
 
-  let id = ids[selector_name];
-  ids[selector_name]++;
+  let id = ids[selector_name]++;
 
   selector.append(
     `
@@ -137,4 +136,36 @@ add_block_iv = (selector_name, model_name) => {
   )
 };
 
+delete_video_row = (id) => {
+  console.log(id);
+  $(id).remove()
+}
 
+add_video_row = (selector, id) => {
+  selector.append(
+    `
+      <div class="block" id="video-rows-${id}">
+        <div class="group-input3">
+          <label>
+            Video Embed Url
+          </label>
+          <textarea name="video-url-${id}"></textarea>
+        </div>
+        <div class="group-input3"></div>
+        <div class="group-input3" id="button">
+          <button type="button" onclick="delete_video_row('#video-rows-${id}')"> Delete Row </button>
+        </div>
+      </div>
+      `
+  )
+}
+
+on_add_video_row = (obj) => {
+  let num = parseInt(obj.value || obj.options[obj.selectedIndex].value);
+  let selector = $(".block.video-rows");
+  selector.empty();
+
+  for (let i = 0; i < num; ++i) {
+    add_video_row(selector, i);
+  }
+};

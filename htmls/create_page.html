@@ -192,6 +192,7 @@
     {# Testimonial #}
     <div class="body-wrapper">
       <h1 class="title">Testimonial</h1>
+
       <div class="block">
         <label>
           Testimonial Heading
@@ -200,8 +201,9 @@
             <img src="./"/>
           </div>
         </label>
-        <div class="mce"></div>
+        <div id="testimonial-heading" class="mce"></div>
       </div>
+
       <div class="block">
         <label>
           Slider
@@ -211,14 +213,16 @@
           </div>
         </label>
         <label class="switch">
-          <input type="checkbox">
+          <input name=testimonial-slider" type="checkbox">
           <span class="slider round"></span>
         </label>
       </div>
+
       <div class="block">
         <div class="testimonial image-video"></div>
         <script> add_block_iv(".testimonial.image-video", "testimonial-iv"); </script>
       </div>
+
       <div class="block">
         <div class="group-input3"></div>
         <div class="group-input3"></div>
@@ -231,6 +235,7 @@
     {# Video Row #}
     <div class="body-wrapper">
       <h1 class="title">Video Row</h1>
+
       <div class="block">
         <label>
           Number Of Columns
@@ -248,49 +253,20 @@
           <option value="4">4</option>
         </select>
       </div>
+
       <div class="block video-rows">
       </div>
     </div>
 
     {# Footer #}
   </div>
+  
   <input type="submit" value="Submit"/>
 </form>
 </body>
 
 
 <script>
-  delete_video_row = (id) => {
-    $(`#video-rows-${id}`).remove()
-  }
-
-  add_video_row = (id) => {
-    $(".block.video-rows").append(
-      `
-      <div class="block" id="video-rows-${id}">
-        <div class="group-input3">
-          <label>
-            Video Embed Url
-          </label>
-          <textarea></textarea>
-        </div>
-        <div class="group-input3"></div>
-        <div class="group-input3" id="button">
-          <button onclick="delete_video_row(${id})"> Delete Row </button>
-        </div>
-      </div>
-      `
-    )
-  }
-
-  on_add_video_row = (obj) => {
-    var x = parseInt(obj.value || obj.options[obj.selectedIndex].value)
-    $(".block.video-rows").empty()
-    for (var i = 0; i < x; ++i) {
-      add_video_row(i)
-    }
-  }
-
   tinymce.init({selector: '.mce'});
 </script>
 
