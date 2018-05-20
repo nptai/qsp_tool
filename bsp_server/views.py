@@ -1,11 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
-import requests, json, os
+import os
 from shopify import Session, ShopifyResource, Asset, Theme
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
-
+from django.core.files.storage import FileSystemStorage
 from config import Config
 
 Session.setup(**Config.authen_params)
@@ -48,16 +45,24 @@ def create_page(request):
     #     'piublished': False,
     #     'template_suffix': Config.prefix
     # })
-    jsontxt = json.dumps(dispatch(request).items(), sort_keys=True, indent=4, separators=(',', ': '))
-    print(jsontxt)
-    return HttpResponse(jsontxt)
+
+    # form = forms.CreatePage()
+
+    return render(request, 'index.html')
+
 
 def dispatch(request):
-    meta = request.POST;
-    for file in request.FILES.items():
-        print(file[1].name, file[1].read())
+    meta = request.POST
 
     return meta
+
+
+def save_files(dir, files):
+    for f in files:
+        fs = FileSystemStorage(location='/home/tainp/projects/qsp_tool/files/')
+        filename = fs.save(f[0], f[1])
+        print(filename, fs.url(filename))
+
 
 def copy_template():
     Asset.create({
@@ -72,13 +77,13 @@ def copy_template():
 
 
 def install_template(request):
-    ActiveSession()
+    ActiveSession(request)
     try:
         theme = Theme().find(role='main')[0]
         Asset().find(Config.theme_params['templates'], theme_id=theme.id)
     except Exception as e:
         print('%s: copying template ...', e)
-        copy_template();
+        copy_template()
 
 
 def save_html(shop, title, html):
