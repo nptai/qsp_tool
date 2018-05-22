@@ -116,9 +116,13 @@ USE_TZ = True
 
 X_FRAME_OPTIONS = 'ALLOWALL'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets'),
+    MEDIA_ROOT
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'files')

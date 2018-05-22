@@ -1,0 +1,136 @@
+{% load static from staticfiles %}
+
+<div class="main-wraper">
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-xs-12">
+          <div class="logo">
+            <a><img src="{% static page.header_logo.url %}" alt="logo"/> </a></div>
+        </div>
+        <div class="col-sm-9 col-xs-12">
+          <nav class="navbar">
+            <ul class="nav navbar-nav pull-right">
+              <li><a href="{{ page.header_link_url_0 }}" target="_blank"
+                     rel="noopener noreferrer">{{ page.header_link_text_0 }}</a></li>
+              <li><a href="{{ page.header_link_url_1 }}" target="_blank"
+                     rel="noopener noreferrer">{{ page.header_link_text_1 }}</a></li>
+              <li><a href="{{ page.header_link_url_2 }}" target="_blank"
+                     rel="noopener noreferrer">{{ page.header_link_text_2 }}</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="section-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12 heading">
+          <p>{{ page.body_heading }}</p>
+        </div>
+        <div class="col-md-8  embed-image clear-cls margin-bottom">
+          <img src="{% static page.body_pr_image.url %}" alt="Product"/></div>
+        <div class="col-md-4">
+          <div class="col-sm-12 col-xs-12" id="above_buy_button">
+            <p>{{ page.body_above_bb }}</p>
+          </div>
+
+          {% if page.body_buy_button %}
+            <div class="col-sm-12 col-xs-12">{{ page.body_bb_code }}</div>
+          {% else %}
+            <div class="col-sm-12 col-xs-12">
+              <a href="{{ page.body_bb_link }}">
+                <img class="button-img-buy" src="{% static page.body_bb_image.url %}" alt="{{ page.header_title }}"/>
+              </a>
+            </div>
+          {% endif %}
+
+          <div class="col-sm-12 col-xs-12" id="below_buy_button">
+            <p>{{ page.body_below_bb }}</p>
+          </div>
+        </div>
+        {% for iv in body_ivs %}
+          <div class="col-md-6 col-xs-12 margin-bottom">
+            <p>{{ iv.tf }}</p>
+          </div>
+          {% if iv.type == "1" %}
+            <div class="col-md-6 col-xs-12 embed-image margin-bottom">
+              <img src="{% static iv.image %}" alt="body_image_one"/>
+            </div>
+          {% elif iv.type == "2" %}
+            <div class="col-md-6 col-xs-12 embed-video margin-bottom">
+              {{ iv.video }}
+            </div>
+          {% endif %}
+          <div style="clear: both;"></div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-testimonial">
+    <div class="container extratop">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <p>{{ page.testimonial_heading }}</p>
+        </div>
+        <div class="col-sm-12 col-xs-12">
+          {% if page.slider == "0" %}
+            <ul class="withouslider">
+          {% else %}
+            <ul class="bxslider">
+          {% endif %}
+
+          {% for iv in testimonial_ivs %}
+            {% if iv.type == "1" %}
+              <li><img src="{% static iv.image %}" alt="image" width="100%"/></li>
+            {% elif iv.type == "2" %}
+              <li>{{ iv.video }}</li>
+            {% endif %}
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-video">
+    <div class="container">
+      <div class="row">
+        {% for v in video_urls %}
+          <div class="col-sm-6 fullwidthiframe2">{{ v }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-footer">
+    <div class="container {{ page.header_title }}-footer footer-bg">
+      <div class="row" id="foot_address">
+        <div class="col-sm-12">{{ page.footer_address }}</div>
+      </div>
+      <div class="footer-menu">
+        <ul>
+          <li><a href="{{ page.footer_link_url_0 }}" class="flink-color" target="_blank"
+                 rel="noopener noreferrer">{{ page.footer_link_text_0 }}</a></li>
+          <li><a href="{{ page.footer_link_url_1 }}" class="flink-color" target="_blank"
+                 rel="noopener noreferrer">{{ page.footer_link_text_1 }}</a></li>
+          <li><a href="{{ page.footer_link_url_2 }}" class="flink-color" target="_blank"
+                 rel="noopener noreferrer">{{ page.footer_link_text_2 }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+<style type="text/css"><!--
+.main-wraper {
+  background-image: url("{% static page.body_bg_image.url %}");
+}
+
+.{{page.header_title}}-footer .flink-color {
+  color: #FFFFFF;
+  font-size: {{page.footer_font_size}}px;
+}
+
+--></style>{{ page.footer_tracking_code }}

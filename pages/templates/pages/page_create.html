@@ -8,8 +8,9 @@
         integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <link rel="stylesheet" href="{% static "styles.css" %}">
-  <script src="{% static "libs/tinymce/tinymce.min.js" %}"></script>
   <script src="{% static "page_create.js" %}"></script>
+  <script src="{% static "libs/tinymce/tinymce.min.js" %}"></script>
+
 </head>
 
 <body>
@@ -67,7 +68,8 @@
             <img src="../../../htmls"/>
           </div>
         </label>
-        <div id="body_heading" class="mce"></div>
+        <div id="body_heading" class="tinymce"></div>
+
       </div>
 
       <div class="block">
@@ -161,7 +163,7 @@
               <img src="../../../htmls"/>
             </div>
           </label>
-          <div id="body_above_bb" class="mce"></div>
+          <div id="body_above_bb" class="tinymce"></div>
         </div>
         <div class="group-input2">
           <label>
@@ -171,7 +173,7 @@
               <img src="../../../htmls"/>
             </div>
           </label>
-          <div id="body_below_bb" class="mce"></div>
+          <div id="body_below_bb" class="tinymce"></div>
         </div>
       </div>
 
@@ -202,7 +204,7 @@
             <img src="../../../htmls"/>
           </div>
         </label>
-        <div id="testimonial_heading" class="mce"></div>
+        <div id="testimonial_heading" class="tinymce"></div>
       </div>
 
       <div class="block">
@@ -352,6 +354,6 @@
 </form>
 </body>
 
-<script> tinymce.init({selector: '.mce'}); </script>
+<script> init_mce(); </script>
 
 </html>
