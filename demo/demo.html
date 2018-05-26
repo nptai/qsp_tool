@@ -1,0 +1,304 @@
+<div class="main-wraper">
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-xs-12">
+          <div class="logo">
+            <a><img src="/static/logo_SPJ178M.png" alt="logo"/> </a></div>
+        </div>
+        <div class="col-sm-9 col-xs-12">
+          <nav class="navbar">
+            <ul class="nav navbar-nav pull-right">
+              <li><a href="" target="_blank"
+                     rel="noopener noreferrer"></a></li>
+              <li><a href="" target="_blank"
+                     rel="noopener noreferrer"></a></li>
+              <li><a href="" target="_blank"
+                     rel="noopener noreferrer"></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="section-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12 heading">
+          <p></p>
+        </div>
+        <div class="col-md-8  embed-image clear-cls margin-bottom">
+          <img src="/static/productimg.jpg" alt="Product"/></div>
+        <div class="col-md-4">
+          <div class="col-sm-12 col-xs-12" id="above_buy_button">
+            <p></p>
+          </div>
+
+
+            <div class="col-sm-12 col-xs-12">
+              <div id='product-component-efa1c0d1533'></div>
+<script data-shopify-buy-ui="">
+	window.open = function (open) {
+	return function (url, name, features) {
+	// Pass through non-shopify URLS
+	if (url.indexOf("myshopify") < 0) {
+	return open.call(window, url, name, features);
+	}
+	// Use current window
+	console.log("Redirecting to:", url);
+	fbq('track', 'AddToCart');
+	window.location.href = url;
+	return null;
+	};
+	}(window.open);
+	/*<![CDATA[*/
+
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  if (window.ShopifyBuy) {
+    if (window.ShopifyBuy.UI) {
+      ShopifyBuyInit();
+    } else {
+      loadScript();
+    }
+  } else {
+    loadScript();
+  }
+
+  function loadScript() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+    script.onload = ShopifyBuyInit;
+  }
+
+  function ShopifyBuyInit() {
+    var client = ShopifyBuy.buildClient({
+      domain: 'planet-vegeta.myshopify.com',
+      apiKey: 'ec5f5c135c88aa87b57cce03d7097283',
+      appId: '6',
+    });
+
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+
+
+      ui.createComponent('product', {
+        id: [583552630828],
+        node: document.getElementById('product-component-efa1c0d1533'),
+        moneyFormat: '%24%7B%7Bamount%7D%7D',
+        options: {
+  "product": {
+    "variantId": "all",
+    "width": "240px",
+    "contents": {
+      "img": false,
+      "imgWithCarousel": false,
+      "title": false,
+      "variantTitle": false,
+      "price": false,
+      "description": false,
+      "buttonWithQuantity": false,
+      "quantity": false
+    },
+    "text": {
+      "button": "I WANT THIS!"
+    },
+    "styles": {
+      "product": {
+        "@media (min-width: 601px)": {
+          "max-width": "100%",
+          "margin-left": "0",
+          "margin-bottom": "50px"
+        }
+      },
+      "button": {
+        "background-color": "#d20104",
+        "font-size": "18px",
+        "padding-top": "17px",
+        "padding-bottom": "17px",
+        ":hover": {
+          "background-color": "#ff0207"
+        },
+        ":focus": {
+          "background-color": "#ff0207"
+        }
+      },
+      "quantityInput": {
+        "font-size": "18px",
+        "padding-top": "17px",
+        "padding-bottom": "17px"
+      },
+      "compareAt": {
+        "font-size": "12px"
+      }
+    }
+  },
+  "cart": {
+    "contents": {
+      "button": true
+    },
+    "styles": {
+      "button": {
+        "background-color": "#d20104",
+        "font-size": "18px",
+        "padding-top": "17px",
+        "padding-bottom": "17px",
+        ":hover": {
+          "background-color": "#ff0207"
+        },
+        ":focus": {
+          "background-color": "#ff0207"
+        }
+      },
+      "footer": {
+        "background-color": "#ffffff"
+      }
+    }
+  },
+  "modalProduct": {
+    "contents": {
+      "img": false,
+      "imgWithCarousel": true,
+      "variantTitle": false,
+      "buttonWithQuantity": true,
+      "button": false,
+      "quantity": false
+    },
+    "styles": {
+      "product": {
+        "@media (min-width: 601px)": {
+          "max-width": "100%",
+          "margin-left": "0px",
+          "margin-bottom": "0px"
+        }
+      },
+      "button": {
+        "background-color": "#d20104",
+        "font-size": "18px",
+        "padding-top": "17px",
+        "padding-bottom": "17px",
+        ":hover": {
+          "background-color": "#ff0207"
+        },
+        ":focus": {
+          "background-color": "#ff0207"
+        }
+      },
+      "quantityInput": {
+        "font-size": "18px",
+        "padding-top": "17px",
+        "padding-bottom": "17px"
+      }
+    }
+  },
+  "toggle": {
+    "styles": {
+      "toggle": {
+        "background-color": "#d20104",
+        ":hover": {
+          "background-color": "#ff0207"
+        },
+        ":focus": {
+          "background-color": "#ff0207"
+        }
+      },
+      "count": {
+        "font-size": "18px"
+      }
+    }
+  },
+  "productSet": {
+    "styles": {
+      "products": {
+        "@media (min-width: 601px)": {
+          "margin-left": "-20px"
+        }
+      }
+    }
+  }
+}
+      });
+    });
+  }
+})();
+/*]]>*/
+
+
+
+</script>
+            </div>
+
+
+          <div class="col-sm-12 col-xs-12" id="below_buy_button">
+            <p></p>
+          </div>
+        </div>
+
+          <div class="col-md-6 col-xs-12 margin-bottom">
+            <p></p>
+          </div>
+
+          <div style="clear: both;"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section-testimonial">
+    <div class="container extratop">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <p></p>
+        </div>
+        <div class="col-sm-12 col-xs-12">
+
+            <ul class="bxslider">
+
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-video">
+    <div class="container">
+      <div class="row">
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section-footer">
+    <div class="container sdfgqw24-footer footer-bg">
+      <div class="row" id="foot_address">
+        <div class="col-sm-12"></div>
+      </div>
+      <div class="footer-menu">
+        <ul>
+          <li><a href="" class="flink-color" target="_blank"
+                 rel="noopener noreferrer"></a></li>
+          <li><a href="" class="flink-color" target="_blank"
+                 rel="noopener noreferrer"></a></li>
+          <li><a href="" class="flink-color" target="_blank"
+                 rel="noopener noreferrer"></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+<style type="text/css"><!--
+.main-wraper {
+  background-image: url("/static/bgimage.jpg");
+}
+
+.sdfgqw24-footer .flink-color {
+  color: #FFFFFF;
+  font-size: px;
+}
+
+--></style>

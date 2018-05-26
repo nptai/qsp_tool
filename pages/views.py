@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseServerError
 from urllib3.util import url
 from django.views.decorators.csrf import csrf_exempt
@@ -31,9 +30,8 @@ def upload_image(request):
         location = save_image(request.FILES.get('file'))
 
         return HttpResponse(json.dumps({
-            'location': '/static/' + location
+            'location': STATIC_URL + location
         }))
-
 
     return HttpResponseServerError()
 
@@ -111,28 +109,31 @@ def dispatch_data(form):
 def page_create(request):
     if request.method == 'POST':
         dispatched = dispatch_request(request)
+        # print(json.dumps(dispatched, sort_keys=True, indent=4, separators=(',', ': ')))
+        print(request.FILES)
         form = forms.CreatePage(dispatched, request.FILES)
         if form.is_valid():
             try:
                 form.save(commit=True)
                 page = Page.objects.filter(header_title=request.POST['header_title']).first()
-                print(page.header_logo.url)
                 body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
 
-                x = render(request, 'template.html', {
+                rended_page = render(request, 'template.html', {
                     'page': page,
                     'body_ivs': body_ivs,
                     'testimonial_ivs': testimonial_ivs,
                     'video_urls': video_urls
                 })
 
-                print(x)
-                return x
+                open("./demo/index.html", "w").write(rended_page.content)
+
+                return HttpResponse("Success")
 
             except Exception as e:
                 print(e.message)
+                return HttpResponse("Error abc")
         else:
-            print('error')
+            return HttpResponse("Error")
     else:
         form = forms.CreatePage()
 

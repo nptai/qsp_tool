@@ -3,11 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 # Create your models here.
 # from django.db import models
 
 class Page(models.Model):
-    header_title = models.CharField(max_length=100, blank=True)
+    header_title = models.CharField(max_length=100)
     header_logo = models.ImageField(blank=True)
 
     header_link_text_0 = models.CharField(max_length=100, blank=True)
@@ -18,7 +19,7 @@ class Page(models.Model):
     header_link_url_1 = models.CharField(max_length=100, blank=True)
     header_link_url_2 = models.CharField(max_length=100, blank=True)
 
-    body_heading = models.CharField(max_length=100, blank=True)
+    body_heading = models.TextField(blank=True)
     body_pr_image = models.ImageField(blank=True)
     body_bg_image = models.ImageField(blank=True)
 
