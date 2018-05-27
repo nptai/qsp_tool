@@ -139,7 +139,7 @@ add_block_iv = (selector_name, model_name) => {
               Image/Video ${id}
               <div class="tool-tips">
                 <i class="fas fa-info-circle"></i>
-                <img src="../htmls"/>
+                <img src=""/>
               </div>
             </label>
             <select name="${model_name}_type_${id}" onchange="on_change_iv(this, '${selector_name}', '${id}')">
@@ -188,7 +188,7 @@ add_block_iv = (selector_name, model_name) => {
             Image ${id} text Field
             <div class="tool-tips">
               <i class="fas fa-info-circle"></i>
-              <img src="../htmls"/>
+              <img src=""/>
             </div>
           </label>
           <div class="tinymce" id="${model_name}_textfield_${id}"></div>

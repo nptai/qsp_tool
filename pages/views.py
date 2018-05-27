@@ -6,8 +6,8 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.http import HttpResponse, HttpResponseServerError
-from urllib3.util import url
 from django.views.decorators.csrf import csrf_exempt
+from bsp_server.settings import PREVIEW_ROOT
 import json, os
 
 from pages.forms import CreatePage
@@ -17,11 +17,7 @@ from bsp_server.settings import STATIC_URL
 
 
 def home_page(request):
-    return render(request, 'pages/home_page.html')
-
-
-def page_detail(request, title):
-    return HttpResponse(title)
+    return render(request, 'pages/templates/home_page.html')
 
 
 @csrf_exempt
@@ -106,35 +102,58 @@ def dispatch_data(form):
     return body_ivs, testimonial_ivs, video_urls
 
 
+def save_html(request, page):
+    if page is None:
+        raise Exception('cannot save page')
+
+    body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
+
+    rended_page = render(request, 'server_template.html', {
+        'page': page,
+        'body_ivs': body_ivs,
+        'testimonial_ivs': testimonial_ivs,
+        'video_urls': video_urls
+    })
+
+    path = os.path.join(PREVIEW_ROOT, '%s.html' % request.POST.get('header_title'))
+    print(path)
+
+    open(path, 'w').write(rended_page.content)
+
+
 def page_create(request):
     if request.method == 'POST':
         dispatched = dispatch_request(request)
-        # print(json.dumps(dispatched, sort_keys=True, indent=4, separators=(',', ': ')))
-        print(request.FILES)
         form = forms.CreatePage(dispatched, request.FILES)
+
         if form.is_valid():
             try:
                 form.save(commit=True)
                 page = Page.objects.filter(header_title=request.POST['header_title']).first()
-                body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
-
-                rended_page = render(request, 'template.html', {
-                    'page': page,
-                    'body_ivs': body_ivs,
-                    'testimonial_ivs': testimonial_ivs,
-                    'video_urls': video_urls
-                })
-
-                open("./demo/index.html", "w").write(rended_page.content)
-
+                save_html(request, page)
                 return HttpResponse("Success")
 
             except Exception as e:
                 print(e.message)
-                return HttpResponse("Error abc")
+                return HttpResponse(e.message)
         else:
-            return HttpResponse("Error")
+            return HttpResponseServerError("Invalid data")
     else:
         form = forms.CreatePage()
 
-    return render(request, 'pages/page_create.html', {'form': form})
+    return render(request, 'page_create.html', {'form': form})
+
+
+def page_detail(request, title):
+    print(title)
+    page = Page.objects.filter(header_title=title).first()
+    body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
+
+    rended_page = render(request, 'server_template.html', {
+        'page': page,
+        'body_ivs': body_ivs,
+        'testimonial_ivs': testimonial_ivs,
+        'video_urls': video_urls
+    })
+
+    return rended_page

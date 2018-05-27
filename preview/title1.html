@@ -1,0 +1,287 @@
+
+
+<!doctype html>
+<html lang='en-US'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <meta name='theme-color' content=''>
+    <link rel='canonical' href=''>
+    <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/bootstrap.css'>
+    <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/common.css'>
+    <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/jquery.bxslider.css'>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet'>
+    <script src='https://quicksalespage.co/js/bootstrap.min.js'></script>
+    <script src='https://quicksalespage.co/js/jquery.bxslider.min.js'></script>
+    <title>Preview - title1</title>
+    <script async="" src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
+    <style>.shopify-buy-modal-is-active {
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .shopify-buy-frame {
+        display: inline-block
+    }
+
+    .shopify-buy-frame iframe {
+        width: 100%;
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .shopify-buy-frame--cart {
+        width: 100%;
+        max-width: 350px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        z-index: 2147483647;
+        transform: translateX(100%);
+        -webkit-transform: translateX(100%)
+    }
+
+    .shopify-buy-frame--cart iframe {
+        height: 100%;
+    }
+
+    .shopify-buy-frame--cart.is-initialized {
+        transition: all 250ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .shopify-buy-frame--cart.is-active {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+    }
+
+    .shopify-buy-frame--product {
+        display: block
+    }
+
+    .shopify-buy-frame--product.shopify-buy__layout-horizontal {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .shopify-buy-frame--product.shopify-buy__layout-horizontal iframe {
+        max-width: 100%;
+    }
+
+    @media (min-width: 950px) {
+
+        .shopify-buy-frame--product.shopify-buy__layout-horizontal iframe {
+            max-width: 950px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .shopify-buy-frame--toggle {
+        display: inline-block
+    }
+
+    .shopify-buy-frame--toggle:not(.is-sticky) {
+        overflow: hidden;
+        padding: 5px;
+    }
+
+    .shopify-buy-frame--toggle.is-sticky {
+        display: none;
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        z-index: 2147483645;
+    }
+
+    .shopify-buy-frame--toggle.is-active.is-sticky {
+        display: block;
+    }
+
+    .is-active {
+    }
+
+    .is-active .shopify-buy-frame--toggle {
+    }
+
+    .is-active .shopify-buy-frame--toggle iframe {
+        min-height: 67px;
+    }
+
+    .shopify-buy-frame--productSet {
+        width: 100%;
+    }
+
+    .shopify-buy-frame--modal {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2147483646;
+        display: none;
+        transition: background 300ms ease
+    }
+
+    .shopify-buy-frame--modal iframe {
+        height: 100%;
+        width: 100%;
+        max-width: none;
+    }
+
+    .shopify-buy-frame--modal.is-active {
+        background: rgba(0, 0, 0, .6);
+    }
+
+    .shopify-buy-frame--modal.is-block {
+        display: block;
+    }
+    </style>
+</head>
+<body>
+<div class="main-wraper">
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="logo">
+                        <a><img src="/static/media/logo_6T6bZ5S.png" alt="logo"/> </a></div>
+                </div>
+                <div class="col-sm-9 col-xs-12">
+                    <nav class="navbar">
+                        <ul class="nav navbar-nav pull-right">
+                            <li><a href="" target="_blank"
+                                   rel="noopener noreferrer"></a></li>
+                            <li><a href="" target="_blank"
+                                   rel="noopener noreferrer"></a></li>
+                            <li><a href="" target="_blank"
+                                   rel="noopener noreferrer"></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="section-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 heading">
+                    <p></p>
+                </div>
+                <div class="col-md-8  embed-image clear-cls margin-bottom">
+                    <img src="/static/media/productimg_5ZClR8N.jpg" alt="Product"/></div>
+                <div class="col-md-4">
+                    <div class="col-sm-12 col-xs-12" id="above_buy_button">
+                        <p></p>
+                    </div>
+
+                    
+                        <div class="col-sm-12 col-xs-12">
+                            
+                        </div>
+                    
+
+                    <div class="col-sm-12 col-xs-12" id="below_buy_button">
+                        <p></p>
+                    </div>
+                </div>
+                
+                    <div class="col-md-6 col-xs-12 margin-bottom">
+                        <p></p>
+                    </div>
+                    
+                    <div style="clear: both;"></div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="section-testimonial">
+        <div class="container extratop">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <p></p>
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    
+                        <ul class="bxslider">
+                    
+
+                    
+                        
+                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-video">
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="section-footer">
+        <div class="container title1-footer footer-bg">
+            <div class="row" id="foot_address">
+                <div class="col-sm-12"></div>
+            </div>
+            <div class="footer-menu">
+                <ul>
+                    <li><a href="" class="flink-color" target="_blank"
+                           rel="noopener noreferrer"></a></li>
+                    <li><a href="" class="flink-color" target="_blank"
+                           rel="noopener noreferrer"></a></li>
+                    <li><a href="" class="flink-color" target="_blank"
+                           rel="noopener noreferrer"></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+<style type="text/css">
+    <!--
+.main-wraper {
+    background-image: url("/static/media/bgimage_GpqtVJY.jpg");
+}
+
+.title1-footer .flink-color {
+    color: #FFFFFF;
+    font-size: px;
+}
+-->
+</style>
+
+
+<script type='text/javascript'> setTimeout(function () {
+    jQuery(document).ready(function () {
+        jQuery('iframe').contents().find('head')
+            .append(jQuery('<style>.shopify-buy__layout-vertical .shopify-buy__product__variant-selectors{max-width:100% !important;}.shopify-buy__btn{width:100% !important;padding: 15px 0px !important}</style>'));
+    });
+    var count = jQuery('.withouslider li').length;
+    if (count == 1) {
+        jQuery('.withouslider li').css('width', '100%');
+    }
+}, 3000);</script>
+
+<div class="shopify-buy-frame shopify-buy-frame--toggle is-sticky" tabindex="0" role="button" aria-label="cart">
+    <iframe style="width: 0px; overflow: hidden; border: medium none; height: 0px;" horizontalscrolling="no"
+            verticalscrolling="no" allowtransparency="true" scrolling="no" name="frame-toggle" frameborder="0"></iframe>
+</div>
+
+<div class="shopify-buy-cart-wrapper shopify-buy-frame shopify-buy-frame--cart">
+    <iframe style="width: 100%; overflow: hidden; border: medium none;" horizontalscrolling="no" verticalscrolling="no"
+            allowtransparency="true" scrolling="no" name="frame-cart" frameborder="0"></iframe>
+</div>
+</body>
+</html>

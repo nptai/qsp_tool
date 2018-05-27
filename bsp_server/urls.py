@@ -16,13 +16,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-import views
+import settings
+
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^install', views.install),
-    url(r'^connect', views.connect),
+    url(r'^auth/', include('shopify_auth.urls')),
     url(r'^pages/', include('pages.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.PREVIEW_URL, document_root=settings.PREVIEW_ROOT)
+
+
