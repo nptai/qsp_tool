@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
+
+from shopify_auth.decorators import login_required
 from django.shortcuts import redirect, render
 from config import Config
 import shopify
@@ -48,3 +50,8 @@ def install_template(request):
     except Exception as e:
         print('%s: copying template ...', e)
         copy_template()
+
+
+@login_required
+def home(request, *args, **kwargs):
+    return render(request, "index.html")

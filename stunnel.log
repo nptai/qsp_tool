@@ -385,3 +385,23 @@
 2018.05.07 18:07:37 LOG3[85]: s_connect: connect 127.0.0.1:8001: Connection refused (111)
 2018.05.07 18:07:37 LOG3[85]: s_connect: connect ::1:8001: Connection refused (111)
 2018.05.07 18:07:37 LOG5[85]: Connection reset: 0 byte(s) sent to SSL, 0 byte(s) sent to socket
+2018.05.28 14:25:30 LOG5[ui]: stunnel 5.30 on x86_64-pc-linux-gnu platform
+2018.05.28 14:25:30 LOG5[ui]: Compiled/running with OpenSSL 1.0.2g  1 Mar 2016
+2018.05.28 14:25:30 LOG5[ui]: Threading:PTHREAD Sockets:POLL,IPv6,SYSTEMD TLS:ENGINE,FIPS,OCSP,PSK,SNI Auth:LIBWRAP
+2018.05.28 14:25:30 LOG5[ui]: Reading configuration from file /home/tainp2/PycharmProjects/qsp_tool/stunnel/dev_https
+2018.05.28 14:25:30 LOG5[ui]: UTF-8 byte order mark not detected
+2018.05.28 14:25:30 LOG5[ui]: FIPS mode disabled
+2018.05.28 14:25:30 LOG4[ui]: Insecure file permissions on stunnel/stunnel.pem
+2018.05.28 14:25:30 LOG5[ui]: Configuration successful
+2018.05.28 14:25:32 LOG3[ui]: Received SIGINT; terminating
+2018.05.28 14:25:34 LOG5[ui]: stunnel 5.30 on x86_64-pc-linux-gnu platform
+2018.05.28 14:25:34 LOG5[ui]: Compiled/running with OpenSSL 1.0.2g  1 Mar 2016
+2018.05.28 14:25:34 LOG5[ui]: Threading:PTHREAD Sockets:POLL,IPv6,SYSTEMD TLS:ENGINE,FIPS,OCSP,PSK,SNI Auth:LIBWRAP
+2018.05.28 14:25:34 LOG5[ui]: Reading configuration from file /home/tainp2/PycharmProjects/qsp_tool/stunnel/dev_https
+2018.05.28 14:25:34 LOG5[ui]: UTF-8 byte order mark not detected
+2018.05.28 14:25:34 LOG5[ui]: FIPS mode disabled
+2018.05.28 14:25:34 LOG4[ui]: Insecure file permissions on stunnel/stunnel.pem
+2018.05.28 14:25:34 LOG5[ui]: Configuration successful
+2018.05.28 14:26:34 LOG5[cron]: Updating DH parameters
+2018.05.28 14:27:20 LOG5[cron]: DH parameters updated
+2018.05.28 14:34:42 LOG5[ui]: Terminated

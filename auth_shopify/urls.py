@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from . import views
 
-app_name = 'shopify_auth'
+app_name = 'auth_shopify'
 
 urlpatterns = [
     url(r'^install', views.install),

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'shopify_auth',
+    'auth_shopify',
     'pages',
 ]
 
@@ -61,8 +62,9 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
+                # 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shopify_auth.context_processors.shopify_auth',
             ],
         },
     },
@@ -85,16 +87,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.shopify_auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth_shopify.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.shopify_auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth_shopify.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.shopify_auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth_shopify.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.shopify_auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth_shopify.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -129,3 +131,19 @@ PREVIEW_URL = '/preview/'
 PREVIEW_ROOT = os.path.join(BASE_DIR, 'preview')
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+# Shopify
+
+SHOPIFY_APP_NAME = '35.189.164.167'
+SHOPIFY_APP_HOST = '66.249.75.29'
+SHOPIFY_APP_API_SCOPE = ['read_products, read_collection_listings, read_themes, write_themes, write_content']
+SHOPIFY_APP_IS_EMBEDDED = True
+SHOPIFY_APP_API_KEY = 'ef01dc7839bc2ee0ceaa335df688915e'
+SHOPIFY_APP_API_SECRET = '4b2cfee0cae314060d1cc2a9f872513e'
+SHOPIFY_APP_DEV_MODE = True
+
+AUTHENTICATION_BACKENDS = ('shopify_auth.backends.ShopUserBackend',)
+AUTH_USER_MODEL = 'auth_shopify.AuthAppShopUser'
+LOGIN_REDIRECT_URL = 'https://%s/auth/install' % SHOPIFY_APP_HOST
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^auth/', include('shopify_auth.urls')),
+    url(r'login/', include('shopify_auth.urls')),
+    url(r'^auth/', include('auth_shopify.urls')),
     url(r'^pages/', include('pages.urls')),
 ]
 
