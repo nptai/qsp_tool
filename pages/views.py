@@ -17,7 +17,7 @@ from bsp_server.settings import STATIC_URL
 
 
 def home_page(request):
-    return render(request, 'pages/templates/home_page.html')
+    return render(request, 'home_page.html')
 
 
 @csrf_exempt
@@ -108,7 +108,7 @@ def save_html(request, page):
 
     body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
 
-    rended_page = render(request, 'server_template.html', {
+    rended_page = render(request, '../assets/templates/server_template.html', {
         'page': page,
         'body_ivs': body_ivs,
         'testimonial_ivs': testimonial_ivs,
@@ -149,7 +149,7 @@ def page_detail(request, title):
     page = Page.objects.filter(header_title=title).first()
     body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
 
-    rended_page = render(request, 'server_template.html', {
+    rended_page = render(request, '../assets/templates/server_template.html', {
         'page': page,
         'body_ivs': body_ivs,
         'testimonial_ivs': testimonial_ivs,

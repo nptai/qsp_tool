@@ -11,6 +11,7 @@ shopify.Session.setup(**Config.authen_params)
 
 
 def install(request):
+    print(request)
     if request.GET.get('shop') is None:
         return render(request, 'error.html')
     return redirect(shopify.Session(request.GET.get('shop')).create_permission_url(**Config.permission_params))
@@ -54,4 +55,6 @@ def install_template(request):
 
 @login_required
 def home(request, *args, **kwargs):
+    print(request)
     return render(request, "index.html")
+

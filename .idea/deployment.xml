@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Best sale page" showDifferentInSync="false" showNewOnSourceInSync="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="tainp@35.225.64.223:22" showDifferentInSync="false" showNewOnSourceInSync="false">
     <serverData>
-      <paths name="Best sale page">
+      <paths name="tainp@35.225.64.223:22">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/tainp/qsp_tool" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/tainp" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
