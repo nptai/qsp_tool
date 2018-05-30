@@ -21,7 +21,7 @@ import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^', include('home_page.urls')),
+    url(r'^home/', include('home_page.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/', include('shopify_auth.urls')),
     url(r'^pages/', include('pages.urls')),

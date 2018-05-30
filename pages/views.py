@@ -118,28 +118,28 @@ def save_html(request, page):
     open(path, 'w').write(rended_page.content)
 
 
-@login_required
 def page_create(request):
-    if request.method == 'POST':
-        dispatched = dispatch_request(request)
-        form = forms.CreatePage(dispatched, request.FILES)
+    with request.user.session:
+        if request.method == 'POST':
+            dispatched = dispatch_request(request)
+            form = forms.CreatePage(dispatched, request.FILES)
 
-        if form.is_valid():
-            try:
-                form.save(commit=True)
-                page = Page.objects.filter(header_title=request.POST['header_title']).first()
-                save_html(request, page)
-                return HttpResponse("Success")
+            if form.is_valid():
+                try:
+                    form.save(commit=True)
+                    page = Page.objects.filter(header_title=request.POST['header_title']).first()
+                    save_html(request, page)
+                    return HttpResponse("Success")
 
-            except Exception as e:
-                print(e.message)
-                return HttpResponse(e.message)
+                except Exception as e:
+                    print(e.message)
+                    return HttpResponse(e.message)
+            else:
+                return HttpResponseServerError("Invalid data")
         else:
-            return HttpResponseServerError("Invalid data")
-    else:
-        form = forms.CreatePage()
+            form = forms.CreatePage()
 
-    return render(request, 'page_create.html', {'form': form})
+        return render(request, 'page_create.html', {'form': form})
 
 
 def page_detail(request, title):
