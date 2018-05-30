@@ -14,10 +14,7 @@ from pages.forms import CreatePage
 from pages.models import Page
 from . import forms
 from bsp_server.settings import STATIC_URL
-
-
-def home_page(request):
-    return render(request, 'home_page.html')
+from shopify_auth.decorators import login_required
 
 
 @csrf_exempt
@@ -121,6 +118,7 @@ def save_html(request, page):
     open(path, 'w').write(rended_page.content)
 
 
+@login_required
 def page_create(request):
     if request.method == 'POST':
         dispatched = dispatch_request(request)

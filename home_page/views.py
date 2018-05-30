@@ -10,25 +10,6 @@ import shopify
 shopify.Session.setup(**Config.authen_params)
 
 
-def install(request):
-    print(request)
-    if request.GET.get('shop') is None:
-        return render(request, 'error.html')
-    return redirect(shopify.Session(request.GET.get('shop')).create_permission_url(**Config.permission_params))
-
-
-def connect(request):
-    shop = request.GET.get('shop')
-    if shop is None:
-        return render(request, 'error.html')
-
-    request.session['shop'] = shop
-    request.session['token'] = shopify.Session(request.GET.get('shop')).request_token(request.GET)
-
-    install_template(request)
-    return render(request, 'welcome.html')
-
-
 def copy_template():
     shopify.Asset.create({
         'key': Config.theme_params['templates'],
@@ -42,9 +23,6 @@ def copy_template():
 
 
 def install_template(request):
-    session = shopify.Session(request.session['shop'], request.session['token'])
-    shopify.ShopifyResource.activate_session(session)
-
     try:
         theme = shopify.Theme().find(role='main')[0]
         shopify.Asset().find(Config.theme_params['templates'], theme_id=theme.id)
@@ -55,6 +33,7 @@ def install_template(request):
 
 @login_required
 def home(request, *args, **kwargs):
-    print(request)
-    return render(request, "index.html")
+    with request.user.session:
+        install_template(request)
+        return render(request, "index.html")
 

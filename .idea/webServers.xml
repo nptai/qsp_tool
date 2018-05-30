@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="520b5dab-a0fd-4a69-b16a-f1744173eaa1" name="tainp@tainguyenphat.ddns.net:22" url="http:///">
+        <fileTransfer host="tainguyenphat.ddns.net" port="22" accessType="SFTP" authAgent="true">
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

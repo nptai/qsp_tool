@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'shopify_auth',
-    'auth_shopify',
+    'home_page',
     'pages',
 ]
 
@@ -135,11 +135,11 @@ PREVIEW_ROOT = os.path.join(BASE_DIR, 'preview')
 
 # Shopify
 
-SHOPIFY_AUTH_USER_MODEL = 'auth_shopify.AuthAppShopUser'
-LOGIN_REDIRECT_URL = 'https://35.225.64.223/auth/connect'
+AUTH_USER_MODEL = 'home_page.AuthAppShopUser'
+LOGIN_REDIRECT_URL = 'https://tainguyenphat.ddns.net/home'
 
 SHOPIFY_APP_NAME = 'BestSalePage'
-SHOPIFY_APP_HOST = '35.225.64.223'
+SHOPIFY_APP_HOST = 'tainguyephat.ddns.net'
 SHOPIFY_APP_API_SCOPE = ['read_products, read_collection_listings, read_themes, write_themes, write_content']
 SHOPIFY_APP_IS_EMBEDDED = True
 SHOPIFY_APP_API_KEY = 'ef01dc7839bc2ee0ceaa335df688915e'
@@ -147,4 +147,9 @@ SHOPIFY_APP_API_SECRET = '4b2cfee0cae314060d1cc2a9f872513e'
 SHOPIFY_APP_DEV_MODE = False
 
 AUTHENTICATION_BACKENDS = ('shopify_auth.backends.ShopUserBackend',)
+
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
