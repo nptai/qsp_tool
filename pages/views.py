@@ -99,13 +99,13 @@ def dispatch_data(form):
     return body_ivs, testimonial_ivs, video_urls
 
 
-def save_html(request, page):
+def render_server(request, page):
     if page is None:
         raise Exception('cannot save page')
 
     body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
 
-    rended_page = render(request, '../assets/templates/server_template.html', {
+    rended_page = render(request, 'shopify_template.html', {
         'page': page,
         'body_ivs': body_ivs,
         'testimonial_ivs': testimonial_ivs,
@@ -113,11 +113,27 @@ def save_html(request, page):
     })
 
     path = os.path.join(PREVIEW_ROOT, '%s.html' % request.POST.get('header_title'))
-    print(path)
 
-    open(path, 'w').write(rended_page.content)
+    f = open(path, 'w')
+    f.write(rended_page.content)
+    f.close()
 
 
+def render_shopify(request, page):
+    if page is None:
+        raise Exception('cannot save page')
+
+    body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
+
+    return render(request, 'shopify_template.html', {
+        'page': page,
+        'body_ivs': body_ivs,
+        'testimonial_ivs': testimonial_ivs,
+        'video_urls': video_urls
+    })
+
+
+@login_required
 def page_create(request):
     with request.user.session:
         if request.method == 'POST':
@@ -128,12 +144,12 @@ def page_create(request):
                 try:
                     form.save(commit=True)
                     page = Page.objects.filter(header_title=request.POST['header_title']).first()
-                    save_html(request, page)
+                    render_server(request, page)
                     return HttpResponse("Success")
 
                 except Exception as e:
                     print(e.message)
-                    return HttpResponse(e.message)
+                    return HttpResponseServerError(e.message)
             else:
                 return HttpResponseServerError("Invalid data")
         else:
@@ -143,11 +159,13 @@ def page_create(request):
 
 
 def page_detail(request, title):
-    print(title)
     page = Page.objects.filter(header_title=title).first()
+    if page is None:
+        return HttpResponseServerError('Page not found')
+
     body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
 
-    rended_page = render(request, '../assets/templates/server_template.html', {
+    rended_page = render(request, 'server_template.html', {
         'page': page,
         'body_ivs': body_ivs,
         'testimonial_ivs': testimonial_ivs,

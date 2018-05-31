@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load fullurl %}
 
 <div class="main-wraper">
   <header>
@@ -6,7 +7,7 @@
       <div class="row">
         <div class="col-sm-3 col-xs-12">
           <div class="logo">
-            <a><img src="{% static page.header_logo.url %}" alt="logo"/> </a></div>
+            <a><img src="{% fullstatic page.header_logo.url %}" alt="logo"/> </a></div>
         </div>
         <div class="col-sm-9 col-xs-12">
           <nav class="navbar">
@@ -30,7 +31,7 @@
           <p>{{ page.body_heading }}</p>
         </div>
         <div class="col-md-8  embed-image clear-cls margin-bottom">
-          <img src="{% static page.body_pr_image.url %}" alt="Product"/></div>
+          <img src="{% fullstatic page.body_pr_image.url %}" alt="Product"/></div>
         <div class="col-md-4">
           <div class="col-sm-12 col-xs-12" id="above_buy_button">
             <p>{{ page.body_above_bb }}</p>
@@ -43,7 +44,7 @@
           {% else %}
             <div class="col-sm-12 col-xs-12">
               <a href="{{ page.body_bb_link }}">
-                <img class="button-img-buy" src="{% static page.body_bb_image.url %}" alt="{{ page.header_title }}"/>
+                <img class="button-img-buy" src="{% fullstatic page.body_bb_image.url %}" alt="{{ page.header_title }}"/>
               </a>
             </div>
           {% endif %}
@@ -58,7 +59,7 @@
           </div>
           {% if iv.type == "1" %}
             <div class="col-md-6 col-xs-12 embed-image margin-bottom">
-              <img src="{% static iv.image %}" alt="body_image_one"/>
+              <img src="{% fullstatic iv.image %}" alt="body_image_one"/>
             </div>
           {% elif iv.type == "2" %}
             <div class="col-md-6 col-xs-12 embed-video margin-bottom">
@@ -86,7 +87,7 @@
 
           {% for iv in testimonial_ivs %}
             {% if iv.type == "1" %}
-              <li><img src="{% static iv.image %}" alt="image" width="100%"/></li>
+              <li><img src="{% fullstatic iv.image %}" alt="image" width="100%"/></li>
             {% elif iv.type == "2" %}
               <li>{{ iv.video }}</li>
             {% endif %}
@@ -127,7 +128,7 @@
 </div>
 <style type="text/css"><!--
 .main-wraper {
-  background-image: url("{% static page.body_bg_image.url %}");
+  background-image: url("{% fullstatic page.body_bg_image.url %}");
 }
 
 .{{page.header_title}}-footer .flink-color {

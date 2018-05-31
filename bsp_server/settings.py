@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fullurl',
     'django_extensions',
     'shopify_auth',
     'home_page',
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'bsp_server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates', 'assets/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
