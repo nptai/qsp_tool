@@ -1,6 +1,6 @@
 Django==1.11.13
 django-extensions==2.0.7
-django-full-url==0.1
+django-fullurl==0.5
 django-shopify-auth==0.8.0
 Pillow==5.1.0
 ShopifyAPI==3.1.0

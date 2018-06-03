@@ -2,13 +2,17 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+import random
 
 # Create your models here.
 # from django.db import models
+from django.template.defaultfilters import title
+
 
 class Page(models.Model):
     shop = models.TextField()
+    shopify_id = models.TextField(blank=True)
+
     header_title = models.TextField(unique=True)
     header_logo = models.ImageField(blank=True)
 
@@ -58,17 +62,3 @@ class Page(models.Model):
 
     def __str__(self):
         return self.header_title
-
-    # def _get_unique_slug(self):
-    #     slug = slugify(self.title)
-    #     unique_slug = slug
-    #     num = 1
-    #     while Article.objects.filter(slug=unique_slug).exists():
-    #         unique_slug = '{}-{}'.format(slug, num)
-    #         num += 1
-    #     return unique_slug
-    #
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = self._get_unique_slug()
-    #     super().save(*args, **kwargs)

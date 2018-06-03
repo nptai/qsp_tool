@@ -4,17 +4,19 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 
 # Create your views here.
+import json, os, random
 
 from django.http import HttpResponse, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
-from bsp_server.settings import PREVIEW_ROOT
-import json, os
+from django.core import serializers
+from shopify_auth.decorators import login_required
+import shopify
 
 from pages.forms import CreatePage
 from pages.models import Page
+from bsp_server.settings import STATIC_URL, PREVIEW_ROOT, SHOPIFY_THEME_PREFIX
 from . import forms
-from bsp_server.settings import STATIC_URL
-from shopify_auth.decorators import login_required
+from django.contrib import messages
 
 
 @csrf_exempt
@@ -99,38 +101,48 @@ def dispatch_data(form):
     return body_ivs, testimonial_ivs, video_urls
 
 
-def render_server(request, page):
-    if page is None:
-        raise Exception('cannot save page')
-
+def process(request, page):
     body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
 
-    rended_page = render(request, 'shopify_template.html', {
+    # shopify side
+    shopify_html = render(request, 'shopify_template.html', {
         'page': page,
         'body_ivs': body_ivs,
         'testimonial_ivs': testimonial_ivs,
         'video_urls': video_urls
     })
 
-    path = os.path.join(PREVIEW_ROOT, '%s.html' % request.POST.get('header_title'))
+    published_page = shopify.Page.create({
+        'title': page.header_title,
+        'body_html': shopify_html.content,
+        'piublished': True,
+        'template_suffix': SHOPIFY_THEME_PREFIX
+    })
 
-    f = open(path, 'w')
-    f.write(rended_page.content)
-    f.close()
+    page.shopify_id = published_page.id
 
-
-def render_shopify(request, page):
-    if page is None:
-        raise Exception('cannot save page')
-
-    body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
-
-    return render(request, 'shopify_template.html', {
+    # server side
+    server_html = render(request, 'server_template.html', {
         'page': page,
         'body_ivs': body_ivs,
         'testimonial_ivs': testimonial_ivs,
         'video_urls': video_urls
     })
+
+    open(os.path.join(PREVIEW_ROOT, '%s_%s.html' % (page.shop, page.header_title)), 'w').write(server_html.content)
+    open(os.path.join(PREVIEW_ROOT, '%s_%s.json' % (page.shop, page.header_title)), 'w').write(
+        serializers.serialize('json', [page]))
+
+
+def make_unique_title(page):
+    if not page.header_title:
+        page.header_title = 'template'
+
+    title = page.header_title
+    while Page.objects.filter(header_title=title).exists():
+        title = '{0}-{1}'.format(title, random.randint(0, 1000000))
+
+    page.header_title = title
 
 
 @login_required
@@ -139,23 +151,19 @@ def page_create(request):
         if request.method == 'POST':
             dispatched = dispatch_request(request)
             form = forms.CreatePage(dispatched, request.FILES)
+            page = form.Meta.model
+            page.shop = request.user.myshopify_domain
+            make_unique_title(page)
+            page.save()
 
-            if form.is_valid():
-                try:
-                    form.save(commit=True)
-                    page = Page.objects.filter(header_title=request.POST['header_title']).first()
-                    render_server(request, page)
-                    return HttpResponse("Success")
+            process(request, page)
 
-                except Exception as e:
-                    print(e.message)
-                    return HttpResponseServerError(e.message)
-            else:
-                return HttpResponseServerError("Invalid data")
+            return HttpResponse('Success')
+
         else:
             form = forms.CreatePage()
 
-        return render(request, 'page_create.html', {'form': form})
+    return render(request, 'page_create.html', {'form': form})
 
 
 def page_detail(request, title):

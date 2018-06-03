@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'full_url',
+    'fullurl',
     'django_extensions',
     'shopify_auth',
     'home_page',
@@ -136,10 +136,10 @@ PREVIEW_ROOT = os.path.join(BASE_DIR, 'preview')
 
 
 # Shopify
+SHOPIFY_THEME_PREFIX = 'BestSalePage'
 
 AUTH_USER_MODEL = 'home_page.AuthAppShopUser'
 LOGIN_REDIRECT_URL = 'https://tainguyenphat.ddns.net/home'
-
 SHOPIFY_APP_NAME = 'BestSalePage'
 SHOPIFY_APP_HOST = 'tainguyephat.ddns.net'
 SHOPIFY_APP_API_SCOPE = ['read_products, read_collection_listings, read_themes, write_themes, write_content']

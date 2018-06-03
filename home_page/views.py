@@ -34,6 +34,5 @@ def install_template(request):
 @login_required
 def home(request, *args, **kwargs):
     with request.user.session:
-        # install_template(request)
+        install_template(request)
         return render(request, "index.html")
-
