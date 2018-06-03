@@ -28,6 +28,5 @@ urlpatterns = [
 ]
 
 urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.PREVIEW_URL, document_root=settings.PREVIEW_ROOT)
 
 

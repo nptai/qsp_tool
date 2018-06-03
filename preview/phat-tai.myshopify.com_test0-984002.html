@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+
 
 <!doctype html>
 <html lang='en-US'>
@@ -6,8 +6,8 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <meta name='viewport' content='width=device-width,initial-scale=1'>
-    <meta name='theme-color' content='{{ settings.color_button }}'>
-    <link rel='canonical' href='{{ canonical_url }}'>
+    <meta name='theme-color' content=''>
+    <link rel='canonical' href=''>
     <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/bootstrap.css'>
     <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/common.css'>
     <link rel='stylesheet' type='text/css' href='https://quicksalespage.co/css/jquery.bxslider.css'>
@@ -15,7 +15,7 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet'>
     <script src='https://quicksalespage.co/js/bootstrap.min.js'></script>
     <script src='https://quicksalespage.co/js/jquery.bxslider.min.js'></script>
-    <title>Preview - {{ page.header_title }}</title>
+    <title>Preview - test0-984002</title>
     <script async="" src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
     <style>.shopify-buy-modal-is-active {
         height: 100%;
@@ -152,19 +152,17 @@
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
                     <div class="logo">
-                        {% if page.header_logo %}
-                            <a><img src="{% static page.header_logo.url %}" alt="logo"/> </a></div>
-                        {% endif %}
+                        
                 </div>
                 <div class="col-sm-9 col-xs-12">
                     <nav class="navbar">
                         <ul class="nav navbar-nav pull-right">
-                            <li><a href="{{ page.header_link_url_0 }}" target="_blank"
-                                   rel="noopener noreferrer">{{ page.header_link_text_0 }}</a></li>
-                            <li><a href="{{ page.header_link_url_1 }}" target="_blank"
-                                   rel="noopener noreferrer">{{ page.header_link_text_1 }}</a></li>
-                            <li><a href="{{ page.header_link_url_2 }}" target="_blank"
-                                   rel="noopener noreferrer">{{ page.header_link_text_2 }}</a></li>
+                            <li><a href="" target="_blank"
+                                   rel="noopener noreferrer"></a></li>
+                            <li><a href="" target="_blank"
+                                   rel="noopener noreferrer"></a></li>
+                            <li><a href="" target="_blank"
+                                   rel="noopener noreferrer"></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -175,49 +173,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-xs-12 heading">
-                    <p>{{ page.body_heading | safe }}</p>
+                    <p></p>
                 </div>
                 <div class="col-md-8  embed-image clear-cls margin-bottom">
-                    {% if page.body_pr_image %}
-                        <img src="{% static page.body_pr_image.url %}" alt="Product"/></div>
-                    {% endif %}
+                    
                 <div class="col-md-4">
                     <div class="col-sm-12 col-xs-12" id="above_buy_button">
-                        <p>{{ page.body_above_bb | safe }}</p>
+                        <p></p>
                     </div>
 
-                    {% if page.body_buy_button == "1" %}
-                        <div class="col-sm-12 col-xs-12">
-                            {{ page.body_bb_code | safe }}
-                        </div>
-                    {% elif page.body_buy_button == "2" %}
-                        <div class="col-sm-12 col-xs-12">
-                            <a href="{{ page.body_bb_link }}">
-                                <img class="button-img-buy" src="{% static page.body_bb_image.url %}"
-                                     alt="{{ page.header_title }}"/>
-                            </a>
-                        </div>
-                    {% endif %}
+                    
 
                     <div class="col-sm-12 col-xs-12" id="below_buy_button">
-                        <p>{{ page.body_below_bb | safe }}</p>
+                        <p></p>
                     </div>
                 </div>
-                {% for iv in body_ivs %}
-                    <div class="col-md-6 col-xs-12 margin-bottom">
-                        <p>{{ iv.textfield | safe }}</p>
-                    </div>
-                    {% if iv.type == "1" %}
-                        <div class="col-md-6 col-xs-12 embed-image margin-bottom">
-                            <img src="{% static iv.image %}" alt="body_image_one"/>
-                        </div>
-                    {% elif iv.type == "2" %}
-                        <div class="col-md-6 col-xs-12 embed-video margin-bottom">
-                            {{ iv.video | safe }}
-                        </div>
-                    {% endif %}
-                    <div style="clear: both;"></div>
-                {% endfor %}
+                
             </div>
         </div>
     </section>
@@ -226,22 +197,14 @@
         <div class="container extratop">
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
-                    <p>{{ page.testimonial_heading | safe }}</p>
+                    <p></p>
                 </div>
                 <div class="col-sm-12 col-xs-12">
-                    {% if page.slider == "0" %}
-                        <ul class="withouslider">
-                    {% else %}
+                    
                         <ul class="bxslider">
-                    {% endif %}
+                    
 
-                    {% for iv in testimonial_ivs %}
-                        {% if iv.type == "1" %}
-                            <li><img src="{% static iv.image %}" alt="image" width="100%"/></li>
-                        {% elif iv.type == "2" %}
-                            <li>{{ iv.video | safe }}</li>
-                        {% endif %}
-                    {% endfor %}
+                    
                     </ul>
                 </div>
             </div>
@@ -251,26 +214,24 @@
     <section class="section-video">
         <div class="container">
             <div class="row">
-                {% for v in video_urls %}
-                    <div class="col-sm-6 fullwidthiframe2">{{ v | safe }}</div>
-                {% endfor %}
+                
             </div>
         </div>
     </section>
 
     <section class="section-footer">
-        <div class="container {{ page.footer_title }}-footer footer-bg">
+        <div class="container test0-984002-footer footer-bg">
             <div class="row" id="foot_address">
-                <div class="col-sm-12">{{ page.footer_address }}</div>
+                <div class="col-sm-12"></div>
             </div>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="{{ page.footer_link_url_0 }}" class="flink-color" target="_blank"
-                           rel="noopener noreferrer">{{ page.footer_link_text_0 }}</a></li>
-                    <li><a href="{{ page.footer_link_url_1 }}" class="flink-color" target="_blank"
-                           rel="noopener noreferrer">{{ page.footer_link_text_1 }}</a></li>
-                    <li><a href="{{ page.footer_link_url_2 }}" class="flink-color" target="_blank"
-                           rel="noopener noreferrer">{{ page.footer_link_text_2 }}</a></li>
+                    <li><a href="" class="flink-color" target="_blank"
+                           rel="noopener noreferrer"></a></li>
+                    <li><a href="" class="flink-color" target="_blank"
+                           rel="noopener noreferrer"></a></li>
+                    <li><a href="" class="flink-color" target="_blank"
+                           rel="noopener noreferrer"></a></li>
                 </ul>
             </div>
         </div>
@@ -279,19 +240,17 @@
 <style type="text/css">
     <!--
     .main-wraper {
-    {% if page.body_bg_image %}
-        background-image: url("{% static page.body_bg_image.url %}");
-    {%  endif  %}
+    
     }
 
-    .{{page.header_title}}-footer .flink-color {
-        color: "#{{ page.footer_color }}";
-        font-size: {{page.footer_font_size}}px;
+    .test0-984002-footer .flink-color {
+        color: "#";
+        font-size: px;
     }
 
     -->
 </style>
-{{ page.footer_tracking_code }}
+
 
 <script type='text/javascript'> setTimeout(function () {
     jQuery(document).ready(function () {

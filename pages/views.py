@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 import json, os, random
@@ -16,7 +16,6 @@ from pages.forms import CreatePage
 from pages.models import Page
 from bsp_server.settings import STATIC_URL, PREVIEW_ROOT, SHOPIFY_THEME_PREFIX
 from . import forms
-from django.contrib import messages
 
 
 @csrf_exempt
@@ -87,6 +86,10 @@ def dispatch_request(request):
             ret[key] = dispatch_iv(request, 'testimonial_iv', False)
         elif key == 'video_urls':
             ret[key] = dispatch_videourl(request, 'video_url')
+        elif key == 'shop':
+            ret[key] = request.user.myshopify_domain
+        elif key == 'header_title':
+            ret[key] = make_unique_title(request.POST.get(key))
         else:
             ret[key] = request.POST.get(key)
 
@@ -134,15 +137,14 @@ def process(request, page):
         serializers.serialize('json', [page]))
 
 
-def make_unique_title(page):
-    if not page.header_title:
-        page.header_title = 'template'
+def make_unique_title(header_title):
+    if not header_title:
+        header_title = 'template'
 
-    title = page.header_title
-    while Page.objects.filter(header_title=title).exists():
-        title = '{0}-{1}'.format(title, random.randint(0, 1000000))
+    while Page.objects.filter(header_title=header_title).exists():
+        header_title = '{0}-{1}'.format(header_title, random.randint(0, 1000000))
 
-    page.header_title = title
+    return header_title
 
 
 @login_required
@@ -150,15 +152,13 @@ def page_create(request):
     with request.user.session:
         if request.method == 'POST':
             dispatched = dispatch_request(request)
+
             form = forms.CreatePage(dispatched, request.FILES)
-            page = form.Meta.model
-            page.shop = request.user.myshopify_domain
-            make_unique_title(page)
-            page.save()
+            page = form.save(commit=True)
 
             process(request, page)
 
-            return HttpResponse('Success')
+            return redirect('/pages/{0}/{1}'.format(page.shop, page.header_title))
 
         else:
             form = forms.CreatePage()
@@ -166,18 +166,7 @@ def page_create(request):
     return render(request, 'page_create.html', {'form': form})
 
 
-def page_detail(request, title):
-    page = Page.objects.filter(header_title=title).first()
-    if page is None:
-        return HttpResponseServerError('Page not found')
-
-    body_ivs, testimonial_ivs, video_urls = dispatch_data(page)
-
-    rended_page = render(request, 'server_template.html', {
-        'page': page,
-        'body_ivs': body_ivs,
-        'testimonial_ivs': testimonial_ivs,
-        'video_urls': video_urls
-    })
-
-    return rended_page
+def page_detail(request, shop, header_title):
+    path = os.path.join(PREVIEW_ROOT, '%s_%s.html' % (shop, header_title))
+    html = open(path, 'r').read()
+    return HttpResponse(html)

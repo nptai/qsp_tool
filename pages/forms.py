@@ -41,4 +41,5 @@ class CreatePage(forms.ModelForm):
                   'footer_facebook_title',
                   'footer_facebook_image',
                   'footer_facebook_description',
+                  'shop',
                   ]
