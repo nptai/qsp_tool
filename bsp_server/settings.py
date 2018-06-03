@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'fullurl',
+    'full_url',
     'django_extensions',
     'shopify_auth',
     'home_page',
@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'shopify_auth.context_processors.shopify_auth',
+                'full_url.context_processors.UrlParts',
             ],
         },
     },
@@ -148,7 +149,6 @@ SHOPIFY_APP_API_SECRET = '4b2cfee0cae314060d1cc2a9f872513e'
 SHOPIFY_APP_DEV_MODE = False
 
 AUTHENTICATION_BACKENDS = ('shopify_auth.backends.ShopUserBackend',)
-
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
