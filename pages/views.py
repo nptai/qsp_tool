@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 # Create your views here.
 import json, os, random
-
-from django.http import HttpResponse, HttpResponseServerError
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseServerError, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from shopify_auth.decorators import login_required
@@ -158,8 +158,7 @@ def page_create(request):
 
             process(request, page)
 
-            return redirect('/pages/{0}/{1}'.format(page.shop, page.header_title))
-
+            return HttpResponseRedirect(reverse('pages:preview', args=[page.shop, page.header_title]))
         else:
             form = forms.CreatePage()
 
