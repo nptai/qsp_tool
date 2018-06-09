@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<form action="{% url 'pages:create' %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'pages:edit' header_title=page.header_title %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="main-wrapper">
         {#    Header#}
@@ -45,14 +45,46 @@
                                 <i class="fas fa-upload"></i>
                                 Choose a file
                             </div>
-                            <input name="header_logo" type="file" required/>
+                            <input name="header_logo" type="file"/>
                         </div>
                     </div>
                     <div class="group-input3"></div>
                 </div>
-
-                <div class="block header-links"></div>
-                <script> generate_links(".block.header-links", "header", "./"); </script>
+                <div class="block">
+                    <div class="group-input3">
+                        <label>
+                            Header Link One
+                            <div class="tool-tips">
+                                <i class="fas fa-info-circle"></i>
+                                <img src=""/>
+                            </div>
+                        </label>
+                        <input name="header_link_text_0" placeholder="header link one text"/>
+                        <input name="header_link_url_0" placeholder="header link one url"/>
+                    </div>
+                    <div class="group-input3">
+                        <label>
+                            Header Link Two
+                            <div class="tool-tips">
+                                <i class="fas fa-info-circle"></i>
+                                <img src=""/>
+                            </div>
+                        </label>
+                        <input name="header_link_text_1" placeholder="header link two text"/>
+                        <input name="header_link_url_1" placeholder="header link two url"/>
+                    </div>
+                    <div class="group-input3">
+                        <label>
+                            Header Link Three
+                            <div class="tool-tips">
+                                <i class="fas fa-info-circle"></i>
+                                <img src=""/>
+                            </div>
+                        </label>
+                        <input name="header_link_text_2" placeholder="header link three text"/>
+                        <input name="header_link_url_2" placeholder="header link three url"/>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -86,7 +118,7 @@
                             <i class="fas fa-upload"></i>
                             Choose a file
                         </div>
-                        <input name="body_pr_image" type="file" required/>
+                        <input name="body_pr_image" type="file"/>
                     </div>
                 </div>
             </div>
@@ -105,12 +137,11 @@
                             <i class="fas fa-upload"></i>
                             Choose a file
                         </div>
-                        <input name="body_bg_image" type="file" required/>
+                        <input name="body_bg_image" type="file"/>
                     </div>
                 </div>
             </div>
 
-            {#      Buy button#}
             <div class="block">
                 <div class="group-input2">
                     <label>
@@ -178,15 +209,73 @@
             </div>
 
             <div class="block">
-                <div class="body image-video"></div>
-                <script> add_block_iv(".body.image-video", "body_iv"); </script>
+                <div class="body image-video">
+                    {% for i in 'xxxxxxxxxx' %}
+                        <div class="block" id="body_{{ forloop.counter0 }}" style="display: none;">
+                            <div class="block">
+                                <div class="group-input3">
+                                    <label>
+                                        Image/Video {{ forloop.counter0 }}
+                                        <div class="tool-tips">
+                                            <i class="fas fa-info-circle"></i>
+                                            <img src=""/>
+                                        </div>
+                                    </label>
+                                    <select name="body_iv_type_{{ forloop.counter0 }}"
+                                            onchange="on_change_body_iv(this, {{ forloop.counter0 }})">
+                                        <option value="0">Please Select</option>
+                                        <option value="1">Image</option>
+                                        <option value="2">Video</option>
+                                    </select>
+                                </div>
+                                <div class="group-input3">
+                                    <div class="input-file" id="image-{{ forloop.counter0 }}" style="display: none;">
+                                        <label>
+                                            Image file
+                                        </label>
+                                        <div class="button">
+                                            <div class="fake-btn">
+                                                <i class="fas fa-upload"></i>
+                                                Choose a file
+                                            </div>
+                                            <input name="body_iv_image_{{ forloop.counter0 }}" type="file"/>
+                                        </div>
+                                    </div>
+                                    <div id="video-{{ forloop.counter0 }}" style="display: none;">
+                                        <label>
+                                            Video Embed Url
+                                        </label>
+                                        <textarea name="body_iv_video_{{ forloop.counter0 }}"></textarea>
+                                    </div>
+                                </div>
+                                <div class="group-input3" id="button">
+                                    <button class="button" type="button"
+                                            onclick="delete_body_iv({{ forloop.counter0 }})"> Remove Row
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="block">
+                                <label>
+                                    Image {{ forloop.counter0 }} text Field
+                                    <div class="tool-tips">
+                                        <i class="fas fa-info-circle"></i>
+                                        <img src=""/>
+                                    </div>
+                                </label>
+                                <div class="tinymce" id="body_iv_textfield_{{ forloop.counter0 }}"></div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
             <div class="block">
                 <div class="group-input3"></div>
                 <div class="group-input3"></div>
                 <div class="group-input3" id="button">
-                    <button class="button" type="button" onclick="add_block_iv('.body.image-video', 'body_iv')"> Add
+                    <button class="button" type="button" onclick="add_body_iv()">
+                        Add
                         New
                         Row
                     </button>
@@ -194,7 +283,6 @@
             </div>
         </div>
 
-        {#    Testimonial#}
         <div class="body-wrapper">
             <h1 class="title">Testimonial</h1>
 
@@ -222,9 +310,56 @@
                     <span class="slider round"></span>
                 </label>
             </div>
+
             <div class="block">
-                <div class="testimonial image-video"></div>
-                <script> add_block_iv(".testimonial.image-video", "testimonial_iv"); </script>
+                <div class="testimonial image-video">
+                    {% for _ in 'xxxxxxxxxx' %}
+                        <div class="block" id="testimonial_{{ forloop.counter0 }}" style="display: none;">
+                            <div class="block">
+                                <div class="group-input3">
+                                    <label>
+                                        Image/Video {{ forloop.counter0 }}
+                                        <div class="tool-tips">
+                                            <i class="fas fa-info-circle"></i>
+                                            <img src=""/>
+                                        </div>
+                                    </label>
+                                    <select name="testimonial_iv_type_{{ forloop.counter0 }}"
+                                            onchange="on_change_testimonial_iv(this, {{ forloop.counter0 }})">
+                                        <option value="0">Please Select</option>
+                                        <option value="1">Image</option>
+                                        <option value="2">Video</option>
+                                    </select>
+                                </div>
+                                <div class="group-input3">
+                                    <div class="input-file" id="image-{{ forloop.counter0 }}" style="display: none;">
+                                        <label>
+                                            Image file
+                                        </label>
+                                        <div class="button">
+                                            <div class="fake-btn">
+                                                <i class="fas fa-upload"></i>
+                                                Choose a file
+                                            </div>
+                                            <input name="testimonial_iv_image_{{ forloop.counter0 }}" type="file"/>
+                                        </div>
+                                    </div>
+                                    <div id="video-{{ forloop.counter0 }}" style="display: none;">
+                                        <label>
+                                            Video Embed Url
+                                        </label>
+                                        <textarea name="testimonial_iv_video_{{ forloop.counter0 }}"></textarea>
+                                    </div>
+                                </div>
+                                <div class="group-input3" id="button">
+                                    <button class="button" type="button"
+                                            onclick="delete_testimonial_iv({{ forloop.counter0 }})"> Remove Row
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
             <div class="block">
@@ -232,7 +367,7 @@
                 <div class="group-input3"></div>
                 <div class="group-input3" id="button">
                     <button class="button" type="button"
-                            onclick="add_block_iv('.testimonial.image-video', 'testimonial_iv')">
+                            onclick="add_testimonial_iv()">
                         Add Row
                     </button>
                 </div>

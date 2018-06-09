@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 import json, os, random
@@ -152,20 +152,45 @@ def page_create(request):
     with request.user.session:
         if request.method == 'POST':
             dispatched = dispatch_request(request)
-
             form = forms.CreatePage(dispatched, request.FILES)
-            page = form.save(commit=True)
+            if form.is_valid():
+                page = form.save(commit=False)
+                page.save()
+                process(request, page)
 
-            process(request, page)
-
-            return HttpResponseRedirect(reverse('pages:preview', args=[page.shop, page.header_title]))
+                return HttpResponseRedirect(reverse('pages:preview', args=[page.shop, page.header_title]))
+            else:
+                return HttpResponse("Error")
         else:
             form = forms.CreatePage()
 
     return render(request, 'page_create.html', {'form': form})
 
 
-def page_detail(request, shop, header_title):
+@login_required
+def page_list(request):
+    with request.user.session:
+        pages = Page.objects.filter(shop=request.user.myshopify_domain)
+        return render(request, 'page_list.html', {'pages': pages})
+
+
+@login_required
+def page_edit(request, header_title):
+    with request.user.session:
+        page = get_object_or_404(Page,
+                                 shop=request.user.myshopify_domain,
+                                 header_title=header_title)
+
+        form = forms.CreatePage(request.POST or None, request.FILES or None, instance=page)
+
+        if form.is_valid():
+            page = form.save(commit=False)
+            page.save()
+
+        return render(request, 'page_edit.html', {'page': page})
+
+
+def page_preview(request, shop, header_title):
     path = os.path.join(PREVIEW_ROOT, '%s_%s.html' % (shop, header_title))
     html = open(path, 'r').read()
     return HttpResponse(html)
