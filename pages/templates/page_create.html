@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<form action="{% url 'pages:edit' header_title=page.header_title %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'pages:create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="main-wrapper">
         {#    Header#}
@@ -30,7 +30,7 @@
                             </div>
                         </label>
                         <input name="header_title" placeholder="Please enter unique Page Title"
-                               value="{{ page.header_title }}" required/>
+                               value="{{ page.header_title }}"/>
                     </div>
                     <div class="group-input3 input-file">
                         <label>

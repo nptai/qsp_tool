@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'bsp_server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bsp',
+        'USER': 'bsp',
+        'PASSWORD': 'nevergiveup',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -154,3 +158,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
+
+LOGIN_URL = '/login'

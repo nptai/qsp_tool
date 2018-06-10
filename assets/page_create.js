@@ -123,8 +123,7 @@ on_change_body_iv = (state, id) => {
     }
 };
 
-on_change_testimonial_iv
-    = (state, id) => {
+on_change_testimonial_iv = (state, id) => {
     let image = $(`.testimonial.image-video #image-${id}`);
     let video = $(`.testimonial.image-video #video-${id}`);
 
@@ -164,8 +163,8 @@ add_body_iv = () => {
 
 delete_body_iv = (id) => {
     $(`select[name="body_iv_type_${id}"]`).val("0");
-    $(`textarea[name="body_iv_image_${id}"]`).val("");
-    $(`select[name="body_iv_video_${id}"]`).val("");
+    on_change_body_iv("0", id);
+
     $(`#body_iv_textfield_${id}_ifr`).contents().find('body').html("");
     $(`.body.image-video #body_${id}`).hide();
 };
