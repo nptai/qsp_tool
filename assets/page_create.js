@@ -62,44 +62,94 @@ init_mce = () => {
     });
 };
 
-change_state = (state, a, b) => {
+on_change_buy_button = (state) => {
+    let code = $('#buy-button-code');
+    let image = $('#buy-button-image');
+
+    let icode = $('textarea[name="body_bb_code"]');
+    let ilink = $('input[name="body_bb_link"]');
+    let iimage = $('input[name="body_bb_image"]');
+
     switch (state) {
-        case "2":
-            a.show();
-            b.hide();
+        case '2':
+            image.show();
+            code.hide();
+            icode.val('');
             break;
 
-        case "1":
-            b.show();
-            a.hide();
+        case '1':
+            code.show();
+            image.hide();
+            ilink.val('');
+            iimage.val('');
+
             break;
 
         default:
-            a.hide();
-            b.hide();
+            code.hide();
+            icode.val('');
+
+            image.hide();
+            ilink.val('');
+            iimage.val('');
     }
 };
 
-on_change_buy_button = (obj) => {
-    let state = (obj.value || obj.options[obj.selectedIndex].value);
-    let bb_code = $("#buy-button-code");
-    let bb_image = $("#buy-button-image");
-    change_state(state, bb_image, bb_code);
-};
-
-on_change_body_iv = (obj, id) => {
-    let state = (obj.value || obj.options[obj.selectedIndex].value);
+on_change_body_iv = (state, id) => {
     let image = $(`.body.image-video #image-${id}`);
     let video = $(`.body.image-video #video-${id}`);
-    change_state(state, video, image)
+
+    let iimage = $(`input[name="body_iv_image_${id}"]`);
+    let ivideo = $(`textarea[name="body_iv_video_${id}"]`);
+
+    switch (state) {
+        case '2':
+            image.hide();
+            video.show();
+            iimage.val('');
+            break;
+
+        case '1':
+            video.hide();
+            image.show();
+            ivideo.val('');
+            break;
+
+        default:
+            image.hide();
+            video.hide();
+            iimage.val('');
+            ivideo.val('');
+    }
 };
 
-on_change_testimonial_iv = (obj, id) => {
-    let state = (obj.value || obj.options[obj.selectedIndex].value);
+on_change_testimonial_iv
+    = (state, id) => {
     let image = $(`.testimonial.image-video #image-${id}`);
     let video = $(`.testimonial.image-video #video-${id}`);
 
-    change_state(state, video, image)
+    let iimage = $(`input[name="testimonial_iv_image_${id}"]`);
+    let ivideo = $(`textarea[name="testimonial_iv_video_${id}"]`);
+
+    switch (state) {
+        case '2':
+            image.hide();
+            video.show();
+            iimage.val('');
+            break;
+
+        case '1':
+            video.hide();
+            image.show();
+            ivideo.val('');
+            break;
+
+        default:
+            image.hide();
+            video.hide();
+            iimage.val('');
+            ivideo.val('');
+    }
 };
 
 add_body_iv = () => {
@@ -113,6 +163,10 @@ add_body_iv = () => {
 };
 
 delete_body_iv = (id) => {
+    $(`select[name="body_iv_type_${id}"]`).val("0");
+    $(`textarea[name="body_iv_image_${id}"]`).val("");
+    $(`select[name="body_iv_video_${id}"]`).val("");
+    $(`#body_iv_textfield_${id}_ifr`).contents().find('body').html("");
     $(`.body.image-video #body_${id}`).hide();
 };
 
@@ -126,46 +180,26 @@ add_testimonial_iv = () => {
     }
 };
 
-
 delete_testimonial_iv = (id) => {
     $(`.testimonial.image-video #testimonial_${id}`).hide();
-};
+    $(`select[name="testimonial_iv_type_${id}"]`).val("0");
+    $(`input[name="testimonial_iv_image_${id}"]`).val("");
+    $(`textarea[name="testimonial_iv_video_${id}"]`).val("");
 
+};
 
 delete_video_row = (id) => {
-    console.log(id);
-    $(id).remove()
-};
-
-add_video_row = (selector, id) => {
-    selector.append(
-        `
-      <div class="block" id="video-rows-${id}">
-        <div>
-        <label> Video Embed Url </label>        
-        </div>
-        <div class="block">
-          <div class="group-input2">
-            <textarea name="video_url_${id}"></textarea>
-          </div>
-          <div class="group-input2" id="button">
-            <button class="button" type="button" onclick="delete_video_row('#video-rows-${id}')"> Delete Row </button>
-          </div>
-        </div>
-      </div>
-      `
-    )
+    $(`#video-rows-${id}`).hide();
+    $(`textarea[name="video_url_${id}"]`).val("");
 };
 
 on_add_video_row = (obj) => {
     let num = parseInt(obj.value || obj.options[obj.selectedIndex].value);
-    let selector = $(".block.video-rows");
-    selector.empty();
 
-    for (let i = 0; i < num; ++i) {
-        add_video_row(selector, i);
+    for (let i = 0; i < 4; ++i) {
+        if (i < num)
+            $(`#video-rows-${i}`).show();
+        else
+            delete_video_row(i);
     }
 };
-
-
-
