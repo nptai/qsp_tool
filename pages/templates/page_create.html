@@ -51,39 +51,19 @@
                     <div class="group-input3"></div>
                 </div>
                 <div class="block">
-                    <div class="group-input3">
-                        <label>
-                            Header Link
-                            <div class="tool-tips">
-                                <i class="fas fa-info-circle"></i>
-                                <img src=""/>
-                            </div>
-                        </label>
-                        <input name="header_link_text_0" placeholder="header link one text"/>
-                        <input name="header_link_url_0" placeholder="header link one url"/>
-                    </div>
-                    <div class="group-input3">
-                        <label>
-                            Header Link
-                            <div class="tool-tips">
-                                <i class="fas fa-info-circle"></i>
-                                <img src=""/>
-                            </div>
-                        </label>
-                        <input name="header_link_text_1" placeholder="header link two text"/>
-                        <input name="header_link_url_1" placeholder="header link two url"/>
-                    </div>
-                    <div class="group-input3">
-                        <label>
-                            Header Link
-                            <div class="tool-tips">
-                                <i class="fas fa-info-circle"></i>
-                                <img src=""/>
-                            </div>
-                        </label>
-                        <input name="header_link_text_2" placeholder="header link three text"/>
-                        <input name="header_link_url_2" placeholder="header link three url"/>
-                    </div>
+                    {% for _ in 'xxx' %}
+                        <div class="group-input3">
+                            <label>
+                                Header Link
+                                <div class="tool-tips">
+                                    <i class="fas fa-info-circle"></i>
+                                    <img src=""/>
+                                </div>
+                            </label>
+                            <input name="header_link_text_0" placeholder="header link one text"/>
+                            <input name="header_link_url_0" placeholder="header link one url"/>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -152,9 +132,9 @@
                         </div>
                     </label>
                     <select name="body_bb_type" onchange="on_change_buy_button(this.value)">
-                        <option value="0">Please Select</option>
-                        <option value="1">Buy button through code</option>
-                        <option value="2">Buy button through image</option>
+                        <option value="none">Please Select</option>
+                        <option value="code">Buy button through code</option>
+                        <option value="image">Buy button through image</option>
                     </select>
                 </div>
                 <div class="group-input2">
@@ -275,9 +255,7 @@
                 <div class="group-input3"></div>
                 <div class="group-input3" id="button">
                     <button class="button" type="button" onclick="add_body_iv()">
-                        Add
-                        New
-                        Row
+                        Add New Row
                     </button>
                 </div>
             </div>
@@ -527,11 +505,11 @@
                 <div class="group-input3">
                     <div class="block">
                         <div class="group-input2">
-                            <input class="button submit" name="submit" type="submit" value="Submit"/>
+                            <input class="button submit" name="submit" type="submit" value="unpublished"/>
                         </div>
 
                         <div class="group-input2">
-                            <input class="button submit" name="submit" type="submit" value="Publish"/>
+                            <input class="button submit" name="submit" type="submit" value="published"/>
                         </div>
                     </div>
                 </div>

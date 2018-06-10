@@ -151,7 +151,6 @@ def make_unique_title(header_title):
 def page_create(request):
     with request.user.session:
         if request.method == 'POST':
-            print(request.POST)
 
             dispatched = dispatch_request(request)
             form = forms.CreatePage(dispatched, request.FILES)
@@ -166,7 +165,7 @@ def page_create(request):
         else:
             form = forms.CreatePage()
 
-    return render(request, 'page_create.html', {'form': form})
+    return render(request, 'test.html', {'form': form})
 
 
 @login_required
@@ -195,4 +194,5 @@ def page_edit(request, header_title):
 def page_preview(request, shop, header_title):
     path = os.path.join(PREVIEW_ROOT, '%s_%s.html' % (shop, header_title))
     html = open(path, 'r').read()
+
     return HttpResponse(html)

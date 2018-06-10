@@ -71,13 +71,13 @@ on_change_buy_button = (state) => {
     let iimage = $('input[name="body_bb_image"]');
 
     switch (state) {
-        case '2':
+        case 'image':
             image.show();
             code.hide();
             icode.val('');
             break;
 
-        case '1':
+        case 'code':
             code.show();
             image.hide();
             ilink.val('');

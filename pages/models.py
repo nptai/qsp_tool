@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models
-import random
-
 # Create your models here.
-# from django.db import models
-from django.template.defaultfilters import title
+from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Page(models.Model):
@@ -16,49 +13,82 @@ class Page(models.Model):
     header_title = models.TextField(unique=True)
     header_logo = models.ImageField(blank=True)
 
-    header_link_text_0 = models.ImageField(blank=True)
-    header_link_text_1 = models.ImageField(blank=True)
-    header_link_text_2 = models.ImageField(blank=True)
-
-    header_link_url_0 = models.ImageField(blank=True)
-    header_link_url_1 = models.ImageField(blank=True)
-    header_link_url_2 = models.ImageField(blank=True)
+    header_link_texts = ArrayField(base_field=models.TextField(blank=True), size=3)
+    header_link_urls = ArrayField(base_field=models.URLField(blank=True), size=3)
 
     body_heading = models.TextField(blank=True)
     body_pr_image = models.ImageField(blank=True)
     body_bg_image = models.ImageField(blank=True)
 
-    body_buy_button = models.CharField(max_length=1, blank=True)
+    body_buy_button = models.IntegerField(
+        choices=(
+            (0, 'none'),
+            (1, 'code'),
+            (2, 'image')
+        ),
+        default=0
+    )
     body_bb_code = models.TextField(blank=True)
     body_bb_image = models.ImageField(blank=True)
-    body_bb_link = models.ImageField(blank=True)
+    body_bb_link = models.URLField(blank=True)
     body_above_bb = models.TextField(blank=True)
     body_below_bb = models.TextField(blank=True)
-    body_ivs = models.TextField(blank=True)
 
-    testimonial_heading = models.TextField(blank=True)
-    testimonial_slider = models.CharField(max_length=1, blank=True)
-    testimonial_ivs = models.TextField(blank=True)
-    video_urls = models.TextField(blank=True)
+    # body_iv_types = ArrayField(
+    #     base_field=models.IntegerField(
+    #         choices=(
+    #             (0, 'none'),
+    #             (1, 'image'),
+    #             (2, 'video')
+    #         ),
+    #         default=0
+    #     ),
+    #     size=10
+    # )
+    #
+    # body_iv_images = ArrayField(base_field=models.ImageField(blank=True), size=10)
+    # body_iv_videos = ArrayField(base_field=models.URLField(blank=True), size=10)
+    # body_iv_textfields = ArrayField(base_field=models.TextField(blank=True), size=10)
+    #
+    # testimonial_heading = models.TextField(blank=True)
+    # testimonial_slider = models.BooleanField(default=False)
+    #
+    # testimonial_iv_types = ArrayField(
+    #     base_field=models.IntegerField(
+    #         choices=(
+    #             (0, 'none'),
+    #             (1, 'image'),
+    #             (2, 'video')
+    #         ),
+    #         default=0
+    #     ),
+    #     size=10
+    # )
+    # testimonial_iv_images = ArrayField(base_field=models.ImageField(blank=True), size=10)
+    # testimonial_iv_videos = ArrayField(base_field=models.URLField(blank=True), size=10)
+    #
+    # video_urls = ArrayField(base_field=models.URLField(blank=True), size=4)
+    #
+    # footer_address = models.ImageField(blank=True)
+    #
+    # footer_link_texts = ArrayField(base_field=models.TextField(blank=True), size=3)
+    # footer_link_urls = ArrayField(base_field=models.URLField(blank=True), size=3)
+    #
+    # footer_color_select = models.TextField(blank=True)
+    # footer_font_size = models.IntegerField(default=0)
+    # footer_tracking_code = models.TextField(blank=True)
+    # footer_facebook_title = models.TextField(blank=True)
+    # footer_facebook_image = models.ImageField(blank=True)
+    # footer_facebook_description = models.TextField(blank=True)
 
-    footer_address = models.ImageField(blank=True)
+    submit_type = models.IntegerField(
+        choices=(
+            (0, 'published'),
+            (1, 'unpublished')
+        ),
+        default=0
+    )
 
-    footer_link_text_0 = models.ImageField(blank=True)
-    footer_link_text_1 = models.ImageField(blank=True)
-    footer_link_text_2 = models.ImageField(blank=True)
 
-    footer_link_url_0 = models.ImageField(blank=True)
-    footer_link_url_1 = models.ImageField(blank=True)
-    footer_link_url_2 = models.ImageField(blank=True)
-
-    footer_color_select = models.ImageField(blank=True)
-    footer_font_size = models.ImageField(blank=True)
-    footer_tracking_code = models.TextField(blank=True)
-    footer_facebook_title = models.ImageField(blank=True)
-    footer_facebook_image = models.ImageField(blank=True)
-    footer_facebook_description = models.TextField(blank=True)
-
-    submit = models.CharField(max_length=10, blank=True)
-
-    def __str__(self):
-        return self.header_title
+def __str__(self):
+    return self.header_title
