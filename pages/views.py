@@ -152,18 +152,15 @@ def page_create(request):
     with request.user.session:
         if request.method == 'POST':
 
-            dispatched = dispatch_request(request)
-            form = forms.CreatePage(dispatched, request.FILES)
+            form = forms.CreatePage(request.POST, request.FILES, use_required_attribute=False)
+            print(form)
             if form.is_valid():
                 page = form.save(commit=False)
                 page.save()
-                process(request, page)
 
-                return HttpResponseRedirect(reverse('pages:preview', args=[page.shop, page.header_title]))
-            else:
-                return HttpResponse("Error")
+            return render(request, 'test.html', {'form': form})
         else:
-            form = forms.CreatePage()
+            form = forms.CreatePage(use_required_attribute=False)
 
     return render(request, 'test.html', {'form': form})
 

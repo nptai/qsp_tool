@@ -1,16 +1,19 @@
 from django import forms
+
 from . import models
-from django.contrib.postgres.forms import SplitArrayWidget
+from django.contrib.postgres.forms import SplitArrayWidget, SimpleArrayField
+from django.contrib.postgres.forms import SplitArrayField
 
 
 class CreatePage(forms.ModelForm):
+    body_iv_images = SplitArrayField(forms.FileField(required=False), size=2)
+
     class Meta:
         model = models.Page
-
         fields = ['header_title',
                   'header_logo',
                   'header_link_texts',
-                  'header_link_urls',
+                  # 'header_link_urls',
                   # 'body_heading',
                   # 'body_pr_image',
                   # 'body_bg_image',
@@ -20,7 +23,10 @@ class CreatePage(forms.ModelForm):
                   'body_bb_link',
                   'body_above_bb',
                   'body_below_bb',
-                  # 'body_ivs',
+                  # 'body_iv_types',
+                  # 'body_iv_images',
+                  # 'body_iv_videos',
+                  # 'body_iv_textfields',
                   # 'testimonial_heading',
                   # 'testimonial_slider',
                   # 'testimonial_ivs',
@@ -39,9 +45,14 @@ class CreatePage(forms.ModelForm):
                   # 'footer_facebook_image',
                   # 'footer_facebook_description',
                   # 'shop',
+                  # 'submit_type'
                   ]
 
         widgets = {
             'header_link_texts': SplitArrayWidget(forms.TextInput(), size=3),
-            'header_link_urls': SplitArrayWidget(forms.URLInput(), size=3)
+            # 'body_iv_images': SplitArrayWidget(forms.ClearableFileInput(), size=3),
+            # 'header_link_urls': SplitArrayWidget(forms.URLInput(), size=3),
+            # 'body_iv_types': SplitArrayWidget(forms.TextInput(), size=10),
+            # 'body_iv_videos': SplitArrayWidget(forms.URLInput(), size=10),
+            # 'body_iv_textfields': SplitArrayWidget(forms.TextInput(), size=10),
         }
