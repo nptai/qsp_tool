@@ -151,7 +151,7 @@ def make_unique_title(header_title):
 def page_create(request):
     with request.user.session:
         if request.method == 'POST':
-
+            print(request.POST)
             form = forms.CreatePage(request.POST, request.FILES, use_required_attribute=False)
             print(form)
             if form.is_valid():

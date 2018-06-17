@@ -1,12 +1,23 @@
 from django import forms
 
 from . import models
-from django.contrib.postgres.forms import SplitArrayWidget, SimpleArrayField
-from django.contrib.postgres.forms import SplitArrayField
+from django.contrib.postgres.forms import SplitArrayField, SplitArrayWidget
 
 
 class CreatePage(forms.ModelForm):
-    body_iv_images = SplitArrayField(forms.FileField(required=False), size=2)
+    header_link_texts = SplitArrayField(
+        forms.CharField(required=False),
+        size=3,
+        remove_trailing_nulls=False,
+        required=False
+    )
+
+    body_iv_images = SplitArrayField(
+        forms.FileField(required=False),
+        size=10,
+        remove_trailing_nulls=False,
+        required=False
+    )
 
     class Meta:
         model = models.Page
@@ -24,7 +35,7 @@ class CreatePage(forms.ModelForm):
                   'body_above_bb',
                   'body_below_bb',
                   # 'body_iv_types',
-                  # 'body_iv_images',
+                  'body_iv_images',
                   # 'body_iv_videos',
                   # 'body_iv_textfields',
                   # 'testimonial_heading',
@@ -49,7 +60,7 @@ class CreatePage(forms.ModelForm):
                   ]
 
         widgets = {
-            'header_link_texts': SplitArrayWidget(forms.TextInput(), size=3),
+            # 'header_link_texts': SplitArrayWidget(forms.TextInput(), size=3),
             # 'body_iv_images': SplitArrayWidget(forms.ClearableFileInput(), size=3),
             # 'header_link_urls': SplitArrayWidget(forms.URLInput(), size=3),
             # 'body_iv_types': SplitArrayWidget(forms.TextInput(), size=10),

@@ -35,7 +35,11 @@ class Page(models.Model):
     header_title = models.TextField(unique=True, default='template')
     header_logo = models.ImageField(blank=True)
 
-    header_link_texts = ArrayField(base_field=models.TextField(blank=True), default=list, size=3)
+    header_link_texts = ArrayField(
+        base_field=models.TextField(blank=True, null=True),
+        default=list,
+        size=3
+    )
     # header_link_urls = ArrayField(base_field=models.URLField(blank=True), default=[], size=3, null=True)
 
     body_heading = models.TextField(blank=True, default='')
@@ -62,8 +66,12 @@ class Page(models.Model):
     #     size=10,
     # )
     #
-    body_iv_images = ArrayField(base_field=models.ImageField(blank=True),
-                                default=['']*3, size=3)
+    body_iv_images = ArrayField(
+        base_field=models.ImageField(blank=True, null=True),
+        default=['']*10,
+        size=10,
+        blank=True
+    )
     # body_iv_videos = ArrayField(base_field=models.URLField(blank=True), default=[], size=10, null=True)
     # body_iv_textfields = ArrayField(base_field=models.TextField(blank=True), default=[], size=10, null=True)
 
